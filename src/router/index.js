@@ -1,16 +1,23 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-// import HelloWorld from '@/components/HelloWorld'
-import HomePage from '@/components/HomePage'
+import VueRouter from 'vue-router'
+import {appRouter} from './web-router'
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'HomePage',
-      component: HomePage
-    }
-  ]
+// 路由配置
+const RouterConfig = {
+  mode: 'history',
+  routes: appRouter
+}
+
+/* eslint import/prefer-default-export: 0 */
+export const router = new VueRouter(RouterConfig)
+
+router.beforeEach((to, from, next) => {
+  next()
+})
+
+router.afterEach(() => {
+  // document.querySelector('footer').style.display = 'block';
+  window.scrollTo(0, 0)
 })
