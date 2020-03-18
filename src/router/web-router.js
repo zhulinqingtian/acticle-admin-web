@@ -1,11 +1,24 @@
 // web 路由配置
 // import HomePage from '@/components/HomePage'
 
+const Login = r => require.ensure([], () => r(require('@/components/Login')))
 const HomePage = r => require.ensure([], () => r(require('@/components/HomePage')))
 
 export const router = [
   {
+    path: '/login',
+    name: 'Login',
+    meta: { title: '登录' },
+    component: Login
+  },
+  {
     path: '/',
+    name: 'HomePage',
+    meta: { title: '首页' },
+    component: HomePage
+  },
+  {
+    path: '/homePage',
     name: 'HomePage',
     meta: { title: '首页' },
     component: HomePage
