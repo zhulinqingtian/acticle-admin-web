@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>首页</p>
+    <p class="my-element">首页</p>
     <img src="imgs/logo.jpg" alt="">
 
     <form>
@@ -35,6 +35,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  .red{
+    color: red
+  }
 
 </style>

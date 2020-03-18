@@ -1,0 +1,75 @@
+// Variable
+$primary-color: hotpink;
+/* color black */
+$black: #262626;
+$lightBlack: #333;
+
+$black_2b: #2b2b2b;  // rgb(43, 43, 43)
+
+/* color gray */
+$background: #f0f2f5;
+$gray: #666;
+$lightGray: #999;
+$extraLightGray: #ddd;
+
+
+/* color green */
+$green: #31cf7f;  // rgb(49, 207, 127)
+$success: #19be6b; // rgb(25, 190, 107)
+
+/* color pink */
+$pink: #fc5a6d; /* word rgb(252, 90, 109) */
+$pink_fc: #fc596d; /* button */
+$danger: #ed3f14; /* rgb(237, 63, 20) */
+
+/* color blue */
+$primary: #1890FF;
+$blue: #4a90e2;
+$blue_primary: #2c97de;
+
+$orange: #ff9f00;  // rgb(255, 159, 0)
+
+/* shadow */
+$bottomShadow: 0 .05rem .4rem 0 rgba(0, 0, 0, .0784);
+
+
+// Mixin
+@mixin line-clamp($line){
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}
+
+@mixin pixel-border($xOffset, $yOffset) {
+  background-image: linear-gradient(180deg, $extraLightGray, $extraLightGray, 50%, transparent 50%);
+  background-size: 120% 1px;
+  background-repeat: no-repeat;
+  background-position: $xOffset $yOffset;
+  background-origin: content-box;
+}
+
+// ==========  mixin 文本单行溢出隐藏 ==========
+@mixin text-overflow($max-width){
+  max-width: $max-width;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+.my-element {
+  color: $primary-color;
+  width: 100%;
+  overflow: hidden;
+}
+
+.my-other-element {
+  // @include:表示引用某个 mixin
+  @include border-radius(5px);
+}

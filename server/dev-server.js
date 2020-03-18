@@ -8,8 +8,6 @@ var bodyParser = require('body-parser')
 
 var type = process.env.NODE_ENV === 'development' ? 'dev' : 'build'
 var config = require('../config/index')[type]
-console.log('type:', type)
-console.log('config:', config)
 var port = config.port
 
 // 设置node环境变量

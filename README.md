@@ -31,6 +31,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 [element-ui](https://element.eleme.cn/#/zh-CN/component/popconfirm)
 
+[浅谈vue-resource和vue-axios的区别](https://www.jianshu.com/p/0af72c351d48)
+
 ### scripts
 初始化项目时，启动直接使用 webpack.dev.conf.js 文件.
 ```json
@@ -82,7 +84,8 @@ webpack-hot-middleware
 
 -[x] 热加载
 -[x] 静态资源处理
--[ ] css预处理器使用
+-[x] css预处理器使用（sass）
+-[ ] history
 -[ ] 封装axios请求 - 接口处理
 -[x] 路由处理
 -[ ] 代理
