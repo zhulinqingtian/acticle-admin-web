@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import 'element-ui/lib/theme-chalk/index.css'
+// 前端页面路由
 import router from './router'
 import VueResource from 'vue-resource'
 
