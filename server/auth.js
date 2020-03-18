@@ -1,5 +1,5 @@
 var request = require('request')
-const loginUrl = 'localhost:10020/login'
+const loginUrl = 'http://localhost:10020/login'
 
 var toLoginServerUrlData = {
   status: 'ERR_SESSION_TIMEOUT',
@@ -19,18 +19,21 @@ var toLogoutServerUrlData = {
 exports.checkAuthTokenForView = function (req, res, next) {
   try {
     var loginToken = req.cookies.loginToken || 'passed'
-    var user = {
-      userName: 'admin',
-      password: 'admin'
-    }
+    var user = null
+    // TODO
+    // var user = {
+    //   userName: 'admin',
+    //   password: 'admin'
+    // }
   } catch (e) {
     res.redirect(loginUrl)
   }
 
   // todo 校验token有效性
   if (user && loginToken) {
-    next()
+    next('/')
   }
+  next('/login')
 }
 
 // 写入token
@@ -42,7 +45,8 @@ exports.setAuthToken = function (req, res, next) {
     res.redirect('/')
   } else {
     // res.redirect(loginUrl)
-    next()
+    console.log('setAuthToken 0')
+    next('/login')
   }
 }
 
