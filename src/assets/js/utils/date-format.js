@@ -1,19 +1,19 @@
-function dateFormat(date, format = 'YYYY-MM-DD hh:mm:ss') {
+function dateFormat (date, format = 'YYYY-MM-DD hh:mm:ss') {
   if (+date === 0 || Number.isNaN(+date)) {
     // console.error(`invalid date: ${date}`);
-    return '--';
+    return '--'
   }
 
-  const d = new Date(+date);
-  const year = d.getFullYear();
-  const month = d.getMonth() + 1;
-  const day = d.getDate();
-  const hour = d.getHours();
-  const min = d.getMinutes();
-  const sec = d.getSeconds();
+  const d = new Date(+date)
+  const year = d.getFullYear()
+  const month = d.getMonth() + 1
+  const day = d.getDate()
+  const hour = d.getHours()
+  const min = d.getMinutes()
+  const sec = d.getSeconds()
 
-  function pad(num) {
-    return String(num).replace(/\b(\d)\b/g, '0$1');
+  function pad (num) {
+    return String(num).replace(/\b(\d)\b/g, '0$1')
   }
 
   return format.replace('YYYY', year)
@@ -30,7 +30,7 @@ function dateFormat(date, format = 'YYYY-MM-DD hh:mm:ss') {
     .replace(/\b(m)\b/, min)
 
     .replace(/ss/, pad(sec))
-    .replace(/\b(s)\b/, sec);
+    .replace(/\b(s)\b/, sec)
 }
 
-export default dateFormat;
+export default dateFormat
