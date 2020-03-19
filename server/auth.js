@@ -18,47 +18,43 @@ var toLogoutServerUrlData = {
  */
 exports.checkAuthTokenForView = function (req, res, next) {
   try {
-    var loginToken = req.cookies.loginToken || 'passed'
-    var user = null
-    // TODO
-    // var user = {
-    //   userName: 'admin',
-    //   password: 'admin'
-    // }
+    if (!req.cookies) {
+      req.cookies = {}
+    }
+    var userName = req.cookies.userName
   } catch (e) {
     res.redirect(loginUrl)
   }
 
   // todo 校验token有效性
-  if (user && loginToken) {
-    next('/')
+  if (userName) {
+    next()
+  } else {
+    next('/login')
   }
-  next('/login')
 }
 
-// 写入token
+// 写入 userName
 exports.setAuthToken = function (req, res, next) {
-  const token = req.query.token
+  const userName = req.query.userName || 'admin'
 
-  if (token) {
-    res.cookie('loginToken', token)
-    res.redirect('/')
+  if (userName) {
+    res.cookie('userName', userName)
+    next('/')
   } else {
-    // res.redirect(loginUrl)
-    console.log('setAuthToken 0')
     next('/login')
   }
 }
 
 exports.toLogout = function (req, res, next) {
   try {
-    var loginToken = req.cookies.loginToken
+    var userName = req.cookies.userName
   } catch (e) {
     res.send(toLoginServerUrlData)
   }
 
   const option = {
-    url: 'localhost:10021' + '/logout?token=' + loginToken,
+    url: 'localhost:10021' + '/logout?userName=' + userName,
     method: 'GET'
   }
 

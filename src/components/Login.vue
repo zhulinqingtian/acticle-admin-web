@@ -1,31 +1,7 @@
 <template>
   <div class="content">
     <div class="option-detail-box">
-      <form action="/login" method="post" id="loginForm" onsubmit="toLogin">
-        <table class="option-detail">
-          <tr>
-            <td colspan="2"><h2>登录</h2></td>
-          </tr>
-          <tr>
-            <td>用户名：</td>
-            <td>
-              <Input name="name" v-model="userName" placeholder="请输入用户名" style="width: 300px"/>
-            </td>
-          </tr>
-          <tr>
-            <td>密码：</td>
-            <td>
-              <Input type='password' name="password" v-model="userPass" placeholder="请输入密码"
-                     style="width: 300px"/>
-            </td>
-          </tr>
-          <tr>
-            <td style="text-align: center" colspan="2">
-              <input type="submit" class="login-btn ivu-btn" value="登录"/>
-            </td>
-          </tr>
-        </table>
-      </form>
+      <p>登录</p>
     </div>
 
   </div>
@@ -45,11 +21,12 @@ export default {
   methods: {
     // 登录
     toLogin () {
+      console.log(1)
       if (!this.userName) {
-        return this.$Message.warning('请输入用户名！')
+        return this.$message('请输入用户名！')
       }
       if (!this.userPass) {
-        return this.$Message.warning('请输入密码！')
+        return this.$message('请输入密码！')
       }
 
       return document.getElementById('loginForm').submit()
@@ -109,8 +86,21 @@ export default {
   }
 
   .login-btn {
-    margin-right: 20px;
-
+    color: #fff;
+    background-color: #409eff;
+    border: 1px solid #409eff;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 6px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    font: 400 14px Arial;
   }
 
   h2 {

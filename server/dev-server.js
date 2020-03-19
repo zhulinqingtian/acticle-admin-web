@@ -45,6 +45,9 @@ app.use(express.static(path.join(__dirname, '../src/assets')))
 // 将路由挂载到express实例上
 apiRoutes.setup(app)
 
+// handle fallback for HTML5 history API
+app.use(require('connect-history-api-fallback')())
+
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   quiet: true

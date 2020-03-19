@@ -17,13 +17,13 @@ export const router = new VueRouter(RouterConfig)
 
 router.beforeEach((to, from, next) => {
   // 登录验证
-  const token = Cookies.get('loginToken')
+  const userName = Cookies.get('userName')
   const loginServerUrl = 'http://localhost:10020/login'
 
-  if (to.path === '/login' && token) {
+  if (to.path === '/login' && userName) {
     console.log(1)
     next('/')
-  } else if (token) {
+  } else if (userName) {
     console.log(2)
     Utils.setTitle(to.meta.title)
     next()

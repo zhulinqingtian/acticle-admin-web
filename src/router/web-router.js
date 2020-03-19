@@ -18,7 +18,7 @@ export const router = [
     component: HomePage
   },
   {
-    path: '/homePage',
+    path: '/view/home',
     name: 'HomePage',
     meta: { title: '首页' },
     component: HomePage
