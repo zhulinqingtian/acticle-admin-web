@@ -21,22 +21,23 @@ exports.checkAuthTokenForView = function (req, res, next) {
     if (!req.cookies) {
       req.cookies = {}
     }
-    var userName = req.cookies.userName
+    var userName = req.cookies.name
+    if (userName) {
+      next()
+    } else {
+      next('/login')
+    }
   } catch (e) {
     res.redirect(loginUrl)
   }
-
-  // todo 校验token有效性
-  if (userName) {
-    next()
-  } else {
-    next('/login')
-  }
+  next()
 }
 
 // 写入 userName
 exports.setAuthToken = function (req, res, next) {
-  const userName = req.query.userName || 'admin'
+  console.log('login setAuthToken')
+  console.log('req.query:', req.query)
+  const userName = req.query.name || 'admin'
 
   if (userName) {
     res.cookie('userName', userName)

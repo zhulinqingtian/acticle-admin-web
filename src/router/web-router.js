@@ -2,6 +2,7 @@
 // import HomePage from '@/components/HomePage'
 
 const Login = r => require.ensure([], () => r(require('@/components/Login')))
+const HelloWorld = r => require.ensure([], () => r(require('@/components/HelloWorld')))
 const HomePage = r => require.ensure([], () => r(require('@/components/HomePage')))
 
 export const router = [
@@ -10,6 +11,12 @@ export const router = [
     name: 'Login',
     meta: { title: '登录' },
     component: Login
+  },
+  {
+    path: '/view/hello',
+    name: 'HelloWorld',
+    meta: { title: 'HelloWorld' },
+    component: HelloWorld
   },
   {
     path: '/',

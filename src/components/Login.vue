@@ -1,38 +1,74 @@
 <template>
   <div class="content">
-    <div class="option-detail-box">
-      <p>登录</p>
-    </div>
-
+    <el-form
+      id='loginForm'
+      :model="ruleForm"
+      :rules="rules"
+      ref="ruleForm"
+      label-width="100px"
+      class="demo-ruleForm"
+      action="/api/login"
+    >
+      <el-form-item label="用户名" prop="name">
+        <el-input v-model="ruleForm.name"></el-input>
+      </el-form-item>
+      <el-form-item label="用户密码" prop="name">
+        <el-input v-model="ruleForm.password"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="toSubmit">登录</el-button>
+        <el-button @click="resetForm('ruleForm')">重置</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
 <script type="text/babel">
-
+import API from '../assets/js/common/api'
 export default {
   name: 'login',
   data () {
     return {
-      userName: '',
-      userPass: ''
+      ruleForm: {
+        name: '',
+        password: ''
+      },
+      rules: {
+        name: [
+          {required: true, message: '请输入用户名', trigger: 'blur'},
+          {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+        ],
+        password: [
+          {required: true, message: '请输入密码', trigger: 'blur'},
+          {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+        ]
+      }
     }
   },
   created: function () {},
   methods: {
-    // 登录
-    toLogin () {
-      console.log(1)
-      if (!this.userName) {
-        return this.$message('请输入用户名！')
-      }
-      if (!this.userPass) {
-        return this.$message('请输入密码！')
-      }
-
-      return document.getElementById('loginForm').submit()
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.toSubmit()
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     },
-    removeHeader () {
-      document.querySelector('#nav-bar').remove()
+    toSubmit () {
+      API.login(this.ruleForm)
+        .then(result => {
+          console.log('result:', result)
+        })
+        .catch(err => {
+          console.log('err:', err)
+          window.location.href = 'http://localhost:10020'
+        })
+    },
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
     }
   },
   components: {}
@@ -41,68 +77,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  .content {
-    padding: 0;
-    padding-top: 100px;
-  }
-
-  .option-detail tr td {
-    font-size: 14px;
-  }
-
-  .tr-label {
-    width: 100px;
-    text-align: right;
-    font-weight: bold;
-  }
-
-  .option-detail-box {
+  .content{
     width: 500px;
-    height: 280px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    border: 1px solid #ccc;
-    box-shadow: 1px 1px 14px 1px rgba(0, 0, 0, 0.2);
-    background-color: #fff;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 60px;
-    margin: auto;
-  }
-
-  .option-detail {
     margin: 0 auto;
   }
-
-  .option-detail tr {
-    height: 50px;
-    line-height: 50px;
-  }
-
-  .option-detail tr td:nth-child(2) {
-    padding-left: 30px;
-  }
-
-  .login-btn {
-    color: #fff;
-    background-color: #409eff;
-    border: 1px solid #409eff;
-    line-height: 1;
-    white-space: nowrap;
-    cursor: pointer;
-    padding: 6px 20px;
-    font-size: 14px;
-    border-radius: 4px;
-    letter-spacing: normal;
-    word-spacing: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    font: 400 14px Arial;
-  }
-
   h2 {
     text-align: center;
   }

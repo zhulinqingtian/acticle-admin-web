@@ -1,27 +1,14 @@
 var auth = require('./auth')
+var apiProxy = require('./controller/api-proxy-controller')
 
 exports.setup = function setup (app) {
   /**
-   * view
-   */
-  app.get(['/', '/view/*'], auth.checkAuthTokenForView)
-
-  /**
    * login/logout token
+   * // todo 加上不能进入页面
    */
-  app.get('/login', auth.setAuthToken)
+  // app.get('/login', auth.setAuthToken)
 
   app.get('/logout', auth.toLogout)
 
-  // app.get(['/', '/view/*'], function (req, res, next) {
-  //   next()
-  // })
-  //
-  // app.get('/login', function (req, res, next) {
-  //   next()
-  // })
-  //
-  // app.get('/logout', function (req, res, next) {
-  //   next()
-  // })
+  app.all('/api/*', apiProxy.proxy)
 }
