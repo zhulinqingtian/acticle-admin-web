@@ -21,8 +21,8 @@ exports.checkAuthTokenForView = function (req, res, next) {
     if (!req.cookies) {
       req.cookies = {}
     }
-    var userName = req.cookies.name
-    if (userName) {
+    var loginUserName = req.cookies.loginUserName
+    if (loginUserName) {
       next()
     } else {
       next('/login')
@@ -33,14 +33,16 @@ exports.checkAuthTokenForView = function (req, res, next) {
   next()
 }
 
-// 写入 userName
+// 写入 loginUserName
 exports.setAuthToken = function (req, res, next) {
-  console.log('login setAuthToken')
-  console.log('req.query:', req.query)
-  const userName = req.query.name || 'admin'
+  console.log('login setAuthToken:', req.cookies)
 
-  if (userName) {
-    res.cookie('userName', userName)
+  if (!req.cookies) {
+    req.cookies = {}
+  }
+  var loginUserName = req.cookies.loginUserName
+  if (loginUserName) {
+    res.cookie('loginUserName', loginUserName)
     next('/')
   } else {
     next('/login')
@@ -49,13 +51,13 @@ exports.setAuthToken = function (req, res, next) {
 
 exports.toLogout = function (req, res, next) {
   try {
-    var userName = req.cookies.userName
+    var loginUserName = req.cookies.loginUserName
   } catch (e) {
     res.send(toLoginServerUrlData)
   }
 
   const option = {
-    url: 'localhost:10021' + '/logout?userName=' + userName,
+    url: 'localhost:10021' + '/logout?loginUserName=' + loginUserName,
     method: 'GET'
   }
 
