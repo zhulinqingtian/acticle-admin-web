@@ -5,6 +5,8 @@ var path = require('path')
 var ejs = require('ejs')
 var favicon = require('serve-favicon')
 var bodyParser = require('body-parser')
+var logger = require('morgan') // 日志模块
+var fs = require('fs') // 文件模块
 
 var type = process.env.NODE_ENV === 'development' ? 'dev' : 'build'
 var config = require('../config/index')[type]
@@ -34,6 +36,9 @@ app.engine('.html', ejs.__express)
 // 给网站设置图标favicon.ico
 app.use(favicon(path.join(__dirname, '../src/assets/img/logo.jpg')))
 
+// 在终端打印日志 （状态码带有色彩的日志输出）
+app.use(logger('dev'))
+
 // 设置post处理
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -41,6 +46,9 @@ app.use(bodyParser.urlencoded({extended: true}))
 // 设置静态资源所在目录
 app.use(express.static(path.join(__dirname, '../static')))
 app.use(express.static(path.join(__dirname, '../src/assets')))
+
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'}) // 创建一个写入流
+app.use(logger('combined', {stream: accessLogStream})) // 将日志写入文件
 
 // 将路由挂载到express实例上
 apiRoutes.setup(app)

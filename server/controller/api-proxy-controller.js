@@ -1,6 +1,6 @@
 'use strict'
 
-var request = require('request')
+// var request = require('request')
 
 var apiMemberServerUrl = global.My_CONF.proxyTable['/api']
 
@@ -46,13 +46,15 @@ exports.proxy = function (req, res) {
     }
   }
 
+  console.log('query:', req.query)
+  console.log('body:', req.body) // post请求参数
+  console.log('param:', req.param)
+
   // TODO ceshi
   res.send({
     message: 'success',
-    status: 200,
-    data: {
-      id: 100
-    }
+    status: 'OK',
+    data: req.body || req.query
   })
 
   /**

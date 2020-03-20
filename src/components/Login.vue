@@ -16,7 +16,7 @@
         <el-input v-model="ruleForm.password"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="toSubmit">登录</el-button>
+        <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
@@ -60,11 +60,16 @@ export default {
     toSubmit () {
       API.login(this.ruleForm)
         .then(result => {
-          console.log('result:', result)
+          this.$message({
+            message: '登陆成功',
+            type: 'success'
+          })
+          document.cookie = 'loginUserName=' + result.name
+          this.$router.push('/')
+          // window.location.href = 'http://localhost:10020'
         })
         .catch(err => {
-          console.log('err:', err)
-          window.location.href = 'http://localhost:10020'
+          this.$message.error(err.message)
         })
     },
     resetForm (formName) {

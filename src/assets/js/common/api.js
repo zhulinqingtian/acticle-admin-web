@@ -28,7 +28,7 @@ axios.interceptors.request.use(config => {
 
 // 返回状态判断
 axios.interceptors.response.use(res => {
-  console.log('axios.interceptors.response : res : ', res.data.status)
+  console.log('========= axios.interceptors.response: ', res.data)
 
   if (res.data.status === 'ERR_SESSION_TIMEOUT' && res.data.message === '未登陆或登陆状态已失效！' && res.data.data) {
     window.location.href = res.data.data
@@ -36,7 +36,7 @@ axios.interceptors.response.use(res => {
   } else if (res.data.message === '您已退出登录。' && res.data.data) {
     window.location.href = res.data.data
     return true
-  } else if (res.data.status !== '200') {
+  } else if (res.data.status !== 'OK') {
     return Promise.reject(res)
   }
   return res
@@ -84,6 +84,6 @@ export default {
     return fetch('/getUser', param, 'get')
   },
   login (param) {
-    return fetch('/api/login', param, 'get')
+    return fetch('/api/login', param, 'post')
   }
 }

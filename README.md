@@ -80,6 +80,51 @@ NODE_ENV环境变量将由cross-env设置
 webpack-dev-middleware
 webpack-hot-middleware
 
+### express中间件--Morgan
+Morgan是一个node.js关于http请求的日志中间件
+
+npm install morgan --save
+
+在终端打印日志:
+```javascript
+var logger = require('morgan');
+app.use(logger('dev')); // 状态码带有色彩的日志输出
+```
+
+每次http请求，express实例都会输出日志，并且使用一致的格式:
+```
+GET / 200 338.136 ms - 170
+POST / 404 60.506 ms - 1225
+GET /users 200 2.432 ms - 23
+POST /users 404 43.958 ms - 1225
+```
+
+将日志写入文件:
+```javascript
+var express = require('express');
+var logger = require('morgan');//日志模块
+var fs = require('fs');//文件模块
+
+var app = express();
+// 创建一个写文件流，并且保存在当前文件夹的access.log文件中
+var accessLogStream = fs.createWriteStream(__dirname+'/access.log',{flags:'a'});
+// 设置开启文件流，并且指明文件流的对象 (将日志写入文件)
+app.use(logger('combined',{stream:accessLogStream}));
+app.get('/',function(req,res){
+  res.send('hello world');
+})
+
+
+app.listen(3000);
+```
+
+### this.$route 和 this.$router
+this.$route  表示当前正在用于跳转的路由器对象，可以调用其name、path、query、params等属性；
+
+this.$router是Vue-Router的实例，需要导航到不同路由则用 `this.$router.push` 方法
+全局路由对象,任何页面都可以调用 push()、 go()等方法
+
+
 ### TODO
 
 -[x] 热加载
