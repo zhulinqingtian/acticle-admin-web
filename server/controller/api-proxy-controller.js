@@ -46,17 +46,6 @@ exports.proxy = function (req, res) {
     }
   }
 
-  console.log('query:', req.query)
-  console.log('body:', req.body) // post请求参数
-  console.log('param:', req.param)
-
-  // TODO ceshi
-  res.send({
-    message: 'success',
-    status: 'OK',
-    data: req.body || req.query
-  })
-
   /**
    * ===================================================
    * 数组参数处理qsStringifyOptions：https://github.com/request/request#requestoptions-callback
@@ -68,6 +57,7 @@ exports.proxy = function (req, res) {
   // toRequest (options, res)
 }
 
+// java端发起请求
 // function toRequest (options, res) {
 //   request(options, function (err, response, body) {
 //     if (err) {

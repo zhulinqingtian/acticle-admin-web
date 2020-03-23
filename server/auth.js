@@ -1,4 +1,5 @@
 var request = require('request')
+var Cookies = require('js-cookie')
 const loginUrl = 'http://localhost:10020/login'
 
 var toLoginServerUrlData = {
@@ -18,66 +19,26 @@ var toLogoutServerUrlData = {
  */
 exports.checkAuthTokenForView = function (req, res, next) {
   try {
-    if (!req.cookies) {
-      req.cookies = {}
-    }
-    var loginUserName = req.cookies.loginUserName
+    // TODO loginUserName 未获取到
+    var loginUserName = Cookies.get('loginUserName')
     if (loginUserName) {
+      console.log('loginUserName:', loginUserName)
       next()
     } else {
-      next('/login')
+      console.log('进入页面 没有用户')
+      res.redirect('http://localhost:10020/login')
     }
   } catch (e) {
-    res.redirect(loginUrl)
-  }
-  next()
-}
-
-// 写入 loginUserName
-exports.setAuthToken = function (req, res, next) {
-  console.log('login setAuthToken:', req.cookies)
-
-  if (!req.cookies) {
-    req.cookies = {}
-  }
-  var loginUserName = req.cookies.loginUserName
-  if (loginUserName) {
-    res.cookie('loginUserName', loginUserName)
-    next('/')
-  } else {
+    console.log('进入页面 catch:', e)
     next('/login')
   }
 }
 
 exports.toLogout = function (req, res, next) {
   try {
-    var loginUserName = req.cookies.loginUserName
+    Cookies.remove('loginUserName')
   } catch (e) {
     res.send(toLoginServerUrlData)
   }
-
-  const option = {
-    url: 'localhost:10021' + '/logout?loginUserName=' + loginUserName,
-    method: 'GET'
-  }
-
-  request(option, function (err, response, body) {
-    if (err) {
-      res.send('服务器内部错误！')
-      return
-    }
-    if (response.statusCode !== 200) {
-      res.send('服务器内部错误！')
-      return
-    }
-
-    const result = JSON.parse(body)
-    const code = result.code
-
-    if (code === 200) {
-      res.send(toLogoutServerUrlData)
-    } else {
-      res.send(body)
-    }
-  })
+  res.send('登出成功')
 }
