@@ -11,7 +11,9 @@ var config = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/api': 'http://localhost:10020'
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
@@ -54,6 +56,10 @@ var config = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+
+    proxyTable: {
+      '/api': 'http://localhost:10020'
+    },
 
     /**
      * Source Maps
