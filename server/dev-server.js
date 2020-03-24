@@ -18,7 +18,9 @@ if (!process.env.NODE_ENV) {
 }
 
 // 设置后端路由（接口）
+// 按模块划分出路由
 const apiRoutes = require('./api-routes')
+const userRoutes = require('./user-routes') // user 部分的路由处理
 
 // 设置webpack配置文件
 var webpackConfig = (process.env.NODE_ENV === 'testing' || process.env.NODE_ENV === 'production')
@@ -52,6 +54,7 @@ app.use(logger('combined', {stream: accessLogStream})) // 将日志写入文件
 
 // 将路由挂载到express实例上
 apiRoutes.setup(app)
+userRoutes.setup(app)
 
 // handle fallback for HTML5 history API
 app.use(require('connect-history-api-fallback')())
