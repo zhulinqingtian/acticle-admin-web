@@ -88,7 +88,6 @@ export default {
     }
   }
   #elmain {
-    background-color: #fff;
     margin-top: 16px;
   }
 </style>
