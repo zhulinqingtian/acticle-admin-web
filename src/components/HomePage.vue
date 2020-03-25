@@ -7,6 +7,9 @@
     <p>
       <el-link href="/view/hello" target="_blank" type="primary">hello</el-link>
     </p>
+    <p>
+      <el-link href="/view/mainLayout" target="_blank" type="primary">MainLayout</el-link>
+    </p>
     <img src="imgs/logo.jpg" alt="">
   </div>
 </template>

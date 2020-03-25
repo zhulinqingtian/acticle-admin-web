@@ -7,6 +7,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 import {router} from './router'
 import VueResource from 'vue-resource'
 
+// store - 全局状态管理
+import store from './store'
+
 // 可以使用部分组件
 // import {Button} from 'element-ui'
 // Vue.use(Button)
@@ -22,6 +25,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
