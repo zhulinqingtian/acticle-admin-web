@@ -106,10 +106,10 @@ const webpackConfig = merge(baseWebpackConfig, {
     // in a separate chunk, similar to the vendor chunk
     // see: https://webpack.js.org/plugins/commons-chunk-plugin/#extra-async-commons-chunk
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'app',
-      async: 'vendor-async',
-      children: true,
-      minChunks: 3
+      name: 'app', // ( 公共chunk 的文件名)
+      async: 'vendor-async', // (创建一个异步 公共chunk)
+      children: true, // 如果设置为 `true`，所有公共 chunk 的子模块都会被选择
+      minChunks: 3 // (模块必须被3个 入口chunk 共享)
     }),
 
     // copy custom static assets

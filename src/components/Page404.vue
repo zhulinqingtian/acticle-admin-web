@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="clearfix">
-      <figure class="figure"><img src="https://cdn.segmentfault.com/v-5e7854c5/global/img/404.svg" alt="杯具啊"></figure>
+      <figure class="figure"><img src="/img/404.svg" alt="杯具啊"></figure>
 
       <h1>杯具啊！</h1>
 

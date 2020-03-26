@@ -3,6 +3,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Cookies from 'js-cookie'
 import role from './module/role'
+import routerData from './module/routerData'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -25,10 +26,13 @@ const store = new Vuex.Store({
   },
   getters: {
     token: state => state.token,
-    info: state => state.role.info
+    info: state => state.role.info,
+    routers: state => state.routerData.routers,
+    addRouters: state => state.routerData.addRouters
   },
   modules: {
-    role
+    role,
+    routerData
   }
 })
 

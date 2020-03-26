@@ -1,59 +1,54 @@
 <template>
   <div id="left-menu-container">
-<!--    <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">-->
-<!--      <el-radio-button :label="false">展开</el-radio-button>-->
-<!--      <el-radio-button :label="true">收起</el-radio-button>-->
-<!--    </el-radio-group>-->
     <el-menu
+      router
+      :default-active="this.$route.path"
       background-color="#03152A"
       text-color="rgba(255,255,255,.7)"
       active-text-color="#ffffff"
-      default-active="1-4-1"
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose"
       :collapse="isCollapse">
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span slot="title">导航一</span>
-        </template>
-        <el-menu-item-group>
-          <span slot="title">分组一</span>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <span slot="title">选项4</span>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
+      <template v-for="(item, index) in $store.getters.routers" v-if="!item.hidden">
+        <el-submenu v-if="item.children.length > 0" :index="index+''" :key="index+''">
+          <template slot="title">
+            <i :class="item.iconCls ? item.iconCls : ['fa', 'fa-server']"></i>
+            <span slot="title">{{ item.name }}</span>
+          </template>
+          <menu-ul :menuData="item.children"></menu-ul>
         </el-submenu>
-      </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
-      </el-menu-item>
+        <el-menu-item :index="item.path" v-else :key="index+''">
+          <i :class="item.iconCls ? item.iconCls : ['fa', 'fa-server']"></i>
+          <span slot="title">{{ item.name }}</span>
+        </el-menu-item>
+      </template>
     </el-menu>
   </div>
 </template>
 
 <script>
+import MenuUl from './MenuUl'
+
 export default {
   name: 'aside-menu',
   data () {
     return {
       isCollapse: false
     }
+  },
+  components: {
+    MenuUl
+  },
+  watch: {
+    // 监听浏览器直接输入路由，将此路由添加到tabnavBox
+    '$route.path': function () {
+      // this.selectmenu(val)
+    }
+  },
+  created () {
+    this.$store.dispatch('getRoutes')
+    console.log('this:', this.$store.getters)
   },
   methods: {
     handleOpen (key, keyPath) {

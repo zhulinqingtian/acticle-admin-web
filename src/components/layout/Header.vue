@@ -26,7 +26,7 @@
           </el-dropdown>
         </li>
         <li class="icon">
-          <img :src="avatar"/>
+          <img src="/img/favicon.ico"/>
         </li>
       </ul>
     </el-header>
@@ -41,8 +41,7 @@ export default {
   components: {},
   data () {
     return {
-      isfullScreen: true,
-      avatar: '../static/imgs/logo.jpg'
+      isfullScreen: true
     }
   },
   methods: {
