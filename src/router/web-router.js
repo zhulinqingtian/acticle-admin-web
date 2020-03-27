@@ -13,6 +13,8 @@ const AddArticle2 = r => require.ensure([], () => r(require('@/components/articl
 
 const AllIcons = r => require.ensure([], () => r(require('@/components/icons/AllIcons.vue')))
 
+const CommodityList = r => require.ensure([], () => r(require('@/components/commodity/CommodityList.vue')))
+
 export const router = [
   {
     path: '/login',
@@ -24,11 +26,13 @@ export const router = [
   {
     path: '/view',
     name: '发表文章',
+    iconCls: 'el-icon-tickets', // 图标样式class
     component: MainLayout,
     children: [
       {
         path: 'addArticle',
         name: 'AddArticle',
+        iconCls: 'el-icon-edit-outline', // 图标样式class
         meta: { title: '发表文章' },
         component: AddArticle,
         children: []
@@ -36,6 +40,7 @@ export const router = [
       {
         path: 'addArticle2',
         name: 'AddArticle2',
+        iconCls: 'el-icon-edit-outline', // 图标样式class
         meta: { title: '发表文章-2' },
         component: AddArticle2,
         children: []
@@ -45,13 +50,31 @@ export const router = [
   {
     path: '/view',
     name: '图标',
+    iconCls: 'el-icon-platform-eleme',
     component: MainLayout,
     children: [
       {
         path: 'allIcons',
         name: 'AllIcons',
+        iconCls: 'el-icon-platform-eleme', // 图标样式class
         meta: { title: '内置图标' },
         component: AllIcons,
+        children: []
+      }
+    ]
+  },
+  {
+    path: '/view',
+    name: '商品展示',
+    iconCls: 'el-icon-picture-outline',
+    component: MainLayout,
+    children: [
+      {
+        path: 'commodityList',
+        name: 'CommodityList',
+        iconCls: 'el-icon-cold-drink', // 图标样式class
+        meta: { title: '商品列表' },
+        component: CommodityList,
         children: []
       }
     ]
