@@ -1,54 +1,82 @@
 <template>
   <div class="panel">
-    <div class="main-content" v-show="showMain">
-      <p class="module-title">商品列表</p>
-      <ul class="list-container">
-        <li v-for="item in list" :key="item.id">
-          <h3 class="c-title">{{item.title}}</h3>
-          <el-image :src="item.src" lazy></el-image>
-          <p :title="item.desc" class="c-desc ellipse">{{item.desc}}</p>
-          <el-button type="primary" size="small" @click="viewDetail(item)">商品介绍</el-button>
-          <el-button type="primary" size="small" @click="viewMore(item)">详细信息</el-button>
-        </li>
-      </ul>
-      <el-pagination
-        background
-        layout="prev, pager, next"
-        :page-size="currentSize"
-        :current-page="currentPage"
-        :page-sizes="sizesList"
-        @current-change="changePages"
-        @size-change="changeSize"
-        :total="listData.length">
-      </el-pagination>
+    <p class="module-title">商品详情</p>
+    <div class="flex-container">
+      <div class="flex-width flex-width-500">
+        <el-carousel trigger="click" :autoplay=autoplay height="350px">
+          <el-carousel-item v-for="x in imgList" :key="x.index">
+            <img :src="x.src" alt="" lazy>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+      <div class="flex-auto">
+        <h3 class="c-title">{{item.title}}</h3>
+        <p class="c-desc">{{item.desc}}</p>
+        <div class="price-block">
+
+        </div>
+        <div class="buy-block">
+          <el-button type="primary" size="small">加入购物车</el-button>
+          <el-button type="primary" size="small">收藏</el-button>
+        </div>
+      </div>
     </div>
 
-    <!-- 子组件 -->
-    <div v-show="!showMain">
-      <CommodityDetail
-        :currentData="currentData"
-      />
-    </div>
-    <!-- 商品详情 -->
-    <el-drawer
-      title="商品详情"
-      :visible.sync="showDetails"
-      :direction="direction"
-      :before-close="handleClose">
-      <h3 class="c-title">{{currentData.title}}</h3>
-      <el-image :src="currentData.src" lazy class="detail-pic"></el-image>
-      <p class="c-desc">{{currentData.desc}}</p>
-    </el-drawer>
+    <!-- 标签页 -->
+    <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tab-pane label="基本参数" name="baseParam">
+        基本参数
+      </el-tab-pane>
+      <el-tab-pane label="详情展示" name="details">
+        详情展示
+      </el-tab-pane>
+      <el-tab-pane label="宝贝评价" name="evaluates">
+        宝贝评价
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <script>
-import CommodityDetail from './CommodityDetail'
-
 export default {
   name: 'CommodityList',
+  props: {
+    currentData: Object
+  },
+  watch: {
+    currentData (data) {
+      this.item = data
+    }
+  },
   data () {
     return {
+      autoplay: false,
+      imgList: [
+        {
+          index: 1,
+          src: '/img/slider/01.png'
+        },
+        {
+          index: 2,
+          src: '/img/slider/02.png'
+        },
+        {
+          index: 3,
+          src: '/img/slider/03.png'
+        },
+        {
+          index: 4,
+          src: '/img/slider/04.png'
+        },
+        {
+          index: 5,
+          src: '/img/slider/05.png'
+        },
+        {
+          index: 6,
+          src: '/img/slider/06.png'
+        }
+      ],
       listData: [
         {
           id: 1,
@@ -137,56 +165,17 @@ export default {
           src: '/img/slider/06.png'
         }
       ], // 所有列表数据
-      list: [], // 当前页数据
-      currentData: {}, // 当前正在编辑查看的item
-      showDetails: false, // 是否展示详情
-      direction: 'rtl', // 详情打开的方向
-      currentPage: 1, // 当前页码
-      currentSize: 10, // 当前每页条数
-      sizesList: [10, 20, 30, 40, 50, 100],
-      showMain: true // 是否显示列表
+      item: {}, // 当前商品数据
+      activeName: 'baseParam' // 当前激活的标签页
     }
   },
   created () {
-    this.getCommodityList()
+
   },
   methods: {
-    changePages (page = 1) {
-      this.currentPage = page
-      this.getCommodityList()
-    },
-    changeSize (size = 5) {
-      this.currentPage = 0
-      this.currentSize = size
-      this.getCommodityList()
-    },
-    getCommodityList () {
-      const param = {
-        page: this.currentPage,
-        size: this.currentSize
-      }
-      this.list = this.listData.slice(param.size * param.page + 1 - param.size, param.size * param.page + 1)
-    },
-    viewDetail (item) {
-      this.currentData = item
-      this.showDetails = true
-      this.$message('这是' + item.title)
-    },
-    viewMore (item) {
-      this.currentData = item
-      this.showMain = false
-    },
-    handleClose (done) {
-      // 关闭前的回调，会暂停 Drawer 的关闭
-      this.$confirm('确认关闭？')
-        .then(_ => {
-          done()
-        })
-        .catch(_ => {})
+    handleClick (tab, event) {
+      console.log(tab, event)
     }
-  },
-  components: {
-    CommodityDetail
   }
 }
 </script>
@@ -198,14 +187,10 @@ export default {
     -webkit-line-clamp: $val;
     overflow: hidden;
   }
-  @mixin text-overflow-multi($val) {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: $val;
-    overflow: hidden;
-  }
   .c-title{
-    text-align: center;
+    padding-right: 8px;
+    font-size: 18px;
+    line-height: 50px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -214,57 +199,16 @@ export default {
     color: #828181;
     padding-left: 8px;
     padding-right: 8px;
-    text-indent: 25px;
-    &.ellipse{
-      @include text-overflow-multi(2)
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .flex-width{
+    img{
+      width: 100%;
     }
   }
-  .list-container{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    li{
-      width: 260px;
-      height: 355px;
-      overflow: hidden;
-      margin: 10px;
-      border: 1px solid #f0f0f0;
-      cursor: pointer;
-      transition: border-color linear 0.5s;
-      text-align: center;
-      &:hover{
-        border-width: 2px;
-        border-color: #47be22;
-      }
-      .c-title{
-        font-size: 16px;
-        line-height: 50px;
-      }
-      .c-desc{
-        font-size: 12px;
-        line-height: 20px;
-      }
-      .el-button{
-        margin-top: 10px;
-        padding: 4px 15px;
-      }
-    }
-  }
-  .el-drawer__body{
-    .c-title{
-      font-size: 18px;
-      line-height: 50px;
-    }
-    .c-desc{
-      text-align: center;
-      font-size: 14px;
-      line-height: 24px;
-    }
-    .detail-pic{
-      width: 350px;
-      display: block;
-      margin: 20px auto;
-    }
+  .el-button{
+    margin-top: 10px;
+    padding: 4px 15px;
   }
 </style>

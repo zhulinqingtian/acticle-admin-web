@@ -1,4 +1,4 @@
-// Variable
+/* === Variable === */
 $primary-color: hotpink;
 /* color black */
 $black: #262626;
@@ -32,6 +32,11 @@ $orange: #ff9f00;  // rgb(255, 159, 0)
 /* shadow */
 $bottomShadow: 0 .05rem .4rem 0 rgba(0, 0, 0, .0784);
 
+* {
+  line-height: 1.7;
+  margin: 0;
+  box-sizing: border-box;
+}
 
 // Mixin
 @mixin line-clamp($line){
@@ -57,12 +62,27 @@ $bottomShadow: 0 .05rem .4rem 0 rgba(0, 0, 0, .0784);
   text-overflow: ellipsis;
 }
 
+@mixin text-overflow-multi($val) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $val;
+  overflow: hidden;
+}
+
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
   -moz-border-radius: $radius;
   border-radius: $radius;
 }
 
+@mixin flex-Justify($val) {
+  justify-content: $val;
+}
+@mixin width($val) {
+  width: $val;
+}
+
+/* === element === */
 .my-element {
   color: $primary-color;
   width: 100%;
@@ -72,4 +92,49 @@ $bottomShadow: 0 .05rem .4rem 0 rgba(0, 0, 0, .0784);
 .my-other-element {
   // @include:表示引用某个 mixin
   @include border-radius(5px);
+}
+
+/* === 抽屉组件样式 === */
+.el-drawer__title{
+  padding: 24px;
+}
+
+/* === flex布局 === */
+.flex-container{
+  display: flex;
+  justify-content: space-between;
+}
+.flex-width{
+  padding: 16px;
+  &.flex-width-500{
+    width: 500px
+  }
+}
+.flex-auto{
+  flex: 1;
+  padding: 16px;
+}
+.space-between{
+  @include flex-Justify('space-between')
+}
+
+/* === 模块标题 === */
+.module-title{
+  background-color: #f7f7f7;
+  border-left: 2px solid #dadada;
+  padding-left: 24px;
+  line-height: 40px;
+}
+
+/* === panel === */
+.panel{
+  background-color: #fff;
+  padding: 24px;
+}
+
+/* Carousel 走马灯 */
+.el-carousel__item{
+  img{
+    width: 100%;
+  }
 }

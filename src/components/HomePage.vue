@@ -12,7 +12,6 @@
       </p>
     </div>
     <div class="flex-width flex-width-500">
-      <span class="demonstration">Click 指示器触发</span>
       <el-carousel trigger="click">
         <el-carousel-item v-for="item in imgList" :key="item.index">
           <img :src="item.src" alt="">

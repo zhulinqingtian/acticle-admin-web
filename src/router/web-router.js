@@ -14,6 +14,7 @@ const AddArticle2 = r => require.ensure([], () => r(require('@/components/articl
 const AllIcons = r => require.ensure([], () => r(require('@/components/icons/AllIcons.vue')))
 
 const CommodityList = r => require.ensure([], () => r(require('@/components/commodity/CommodityList.vue')))
+const CommodityDetail = r => require.ensure([], () => r(require('@/components/commodity/CommodityDetail.vue')))
 
 export const router = [
   {
@@ -75,6 +76,14 @@ export const router = [
         iconCls: 'el-icon-cold-drink', // 图标样式class
         meta: { title: '商品列表' },
         component: CommodityList,
+        children: []
+      },
+      {
+        path: 'commodityDetail',
+        name: 'CommodityDetail',
+        iconCls: 'el-icon-cold-drink', // 图标样式class
+        meta: { title: '商品详情' },
+        component: CommodityDetail,
         children: []
       }
     ]
