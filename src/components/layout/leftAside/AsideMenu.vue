@@ -13,13 +13,13 @@
       <template v-for="(item, index) in $store.getters.routers" v-if="!item.hidden">
         <el-submenu v-if="item.children.length > 0" :index="index+''" :key="index+''">
           <template slot="title">
-            <i :class="item.iconCls ? item.iconCls : ['fa', 'fa-server']"></i>
+            <i :class="item.iconCls ? item.iconCls : 'el-icon-cherry'"></i>
             <span slot="title">{{ item.name }}</span>
           </template>
           <menu-ul :menuData="item.children"></menu-ul>
         </el-submenu>
         <el-menu-item :index="item.path" v-else :key="index+''">
-          <i :class="item.iconCls ? item.iconCls : ['fa', 'fa-server']"></i>
+          <i :class="item.iconCls ? item.iconCls : 'el-icon-cherry'"></i>
           <span slot="title">{{ item.name }}</span>
         </el-menu-item>
       </template>
@@ -69,7 +69,7 @@ export default {
   .el-menu-item.is-active {
     background-color: #56a9ff !important
   }
-  .el-submenu{
+  .el-submenu, .el-menu-item{
     width: 200px;
   }
   .el-menu-item-group>ul{
