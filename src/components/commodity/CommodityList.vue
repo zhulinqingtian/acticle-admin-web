@@ -7,8 +7,10 @@
           <h3 class="c-title">{{item.title}}</h3>
           <el-image :src="item.src" lazy></el-image>
           <p :title="item.desc" class="c-desc ellipse">{{item.desc}}</p>
-          <el-button type="primary" size="small" @click="viewDetail(item)">商品介绍</el-button>
-          <el-button type="primary" size="small" @click="viewMore(item)">详细信息</el-button>
+          <div class="operate-block">
+            <el-button type="primary" size="small" @click="viewDetail(item)">商品介绍</el-button>
+            <el-button type="primary" size="small" @click="viewMore(item)">详细信息</el-button>
+          </div>
         </li>
       </ul>
       <el-pagination
@@ -226,16 +228,42 @@ export default {
     align-items: flex-start;
     li{
       width: 260px;
-      height: 355px;
+      height: 305px;
       overflow: hidden;
       margin: 10px;
       border: 1px solid #f0f0f0;
       cursor: pointer;
       transition: border-color linear 0.5s;
       text-align: center;
+      position: relative;
       &:hover{
         border-width: 2px;
         border-color: #47be22;
+        .operate-block{
+          animation: moveToTop linear 0.4s;
+          /*循环1次 */
+          animation-iteration-count: 1;
+        }
+      }
+      .operate-block{
+        position: absolute;
+        height: 305px;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: rgba(0,0,0,0.4);
+        button{
+          display: inline-block;
+          margin-top: 40px;
+        }
+      }
+      @keyframes moveToTop {
+        from {
+          top: 100%;
+        }
+        to{
+          top: 0;
+        }
       }
       .c-title{
         font-size: 16px;
