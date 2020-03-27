@@ -14,8 +14,8 @@
       :page-size="currentSize"
       :current-page="currentPage"
       :page-sizes="sizesList"
-      @current-change="changePages(page)"
-      @size-change="changeSize(size)"
+      @current-change="changePages"
+      @size-change="changeSize"
       :total="listData.length">
     </el-pagination>
 
@@ -80,14 +80,57 @@ export default {
           title: '紫色满天星-2',
           desc: '天上不会夜夜都有晶莹闪烁的星，夜空有时阴云笼罩，漆黑如墨，然而只要有你温柔的目光，我的心中便有一片灿烂的星光。',
           src: '/img/slider/06.png'
+        },
+        {
+          id: 8,
+          title: '早安，满天星。',
+          desc: '早已过了做梦的年龄，也不是个浪漫之人，喜欢花，却很少买。',
+          src: '/img/slider/01.png'
+        },
+        {
+          id: 9,
+          title: '又见满天星',
+          desc: '早已过了做梦的年龄，也不是个浪漫之人，喜欢花，却很少买。',
+          src: '/img/slider/02.png'
+        },
+        {
+          id: 10,
+          title: '白色满天星',
+          desc: '总是这样认为，鲜花的生命过于短暂，它们总是在我的面前无奈地凋零，一片又一片地落下，无论我怎样的精心呵护，却也无法挽留住它们瞬间的美丽。',
+          src: '/img/slider/03.png'
+        },
+        {
+          id: 11,
+          title: '绿色满天星',
+          desc: '花开，花落，总带着一种凄凉，这是我最不愿看到的。所以，我宁愿买绢花，虽然是一种不真实的美，却也是永恒的美丽。',
+          src: '/img/slider/04.png'
+        },
+        {
+          id: 12,
+          title: '黄色满天星-橙色满天星毛茛花束',
+          desc: '仔细看那些细细小小的白色花朵，它们太普通了，小的毫不起眼，任凭你怎样的细数，却也数不出它到底有几层花瓣，可就是这样普通至极的满天星却让我对它独有情钟。',
+          src: '/img/slider/05.png'
+        },
+        {
+          id: 13,
+          title: '紫色满天星',
+          desc: '星河明淡，春来深浅。红莲正、满城开遍。禁街行乐，暗尘香拂面。皓月随人近远。\n' +
+            '天半鳌山，光动凤楼两观。东风静、珠帘不卷。玉辇将归，云外闻弦管。认得宫花影转。',
+          src: '/img/slider/06.png'
+        },
+        {
+          id: 14,
+          title: '紫色满天星-2',
+          desc: '天上不会夜夜都有晶莹闪烁的星，夜空有时阴云笼罩，漆黑如墨，然而只要有你温柔的目光，我的心中便有一片灿烂的星光。',
+          src: '/img/slider/06.png'
         }
-      ],
-      list: [],
+      ], // 所有列表数据
+      list: [], // 当前页数据
       currentData: {}, // 当前正在编辑查看的item
       showDetails: false, // 是否展示详情
       direction: 'rtl', // 详情打开的方向
-      currentPage: 0, // 当前页码
-      currentSize: 5, // 当前每页条数
+      currentPage: 1, // 当前页码
+      currentSize: 10, // 当前每页条数
       sizesList: [10, 20, 30, 40, 50, 100]
     }
   },
@@ -95,24 +138,21 @@ export default {
     this.getCommodityList()
   },
   methods: {
-    changePages (page = 0) {
-      // todo page无效
+    changePages (page = 1) {
       this.currentPage = page
+      this.getCommodityList()
     },
-    changeSize (size) {
+    changeSize (size = 5) {
       this.currentPage = 0
       this.currentSize = size
+      this.getCommodityList()
     },
     getCommodityList () {
       const param = {
         page: this.currentPage,
         size: this.currentSize
       }
-      if (param.page === 0) {
-        this.list = this.listData.slice(1, 5)
-      } else {
-        this.list = this.listData.slice(6)
-      }
+      this.list = this.listData.slice(param.size * param.page + 1 - param.size, param.size * param.page + 1)
     },
     viewDetail (item) {
       this.currentData = item
