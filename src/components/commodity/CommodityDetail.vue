@@ -10,14 +10,39 @@
         </el-carousel>
       </div>
       <div class="flex-auto">
-        <h3 class="c-title">{{item.title}}</h3>
-        <p class="c-desc">{{item.desc}}</p>
+        <h3 class="c-title">
+          <label class="name">宝贝名称：</label>
+          {{item.title}}
+        </h3>
+        <div class="desc-block">
+          <p class="c-desc">{{item.desc}}</p>
+        </div>
         <div class="price-block">
-
+          <label class="name">宝贝价格：</label>
+          ￥ <span>100</span>元
+        </div>
+        <div class="city-block">
+          <label class="name">收货地址：</label>
+          <v-distpicker
+            @selected="changeAddress"
+            province="江苏省"
+            city="南京市"
+            area="雨花台区"
+            :rows="17"/>
+        </div>
+        <div class="buy-num-block">
+          <label class="name">购买数量：</label>
+          <el-input-number
+            v-model="buyNum"
+            controls-position="right"
+            @change="changeNumber"
+            :min="1"
+            :max="10"/>
         </div>
         <div class="buy-block">
-          <el-button type="primary" size="small">加入购物车</el-button>
-          <el-button type="primary" size="small">收藏</el-button>
+          <el-button @click="toAddCart" icon='el-icon-shopping-cart-full' type="danger" size="small">加入购物车</el-button>
+          <el-button @click='toCollect' icon='el-icon-collection' type="danger" size="small">收藏</el-button>
+          <el-button @click="toBack" type="primary" size="small">返回</el-button>
         </div>
       </div>
     </div>
@@ -38,6 +63,8 @@
 </template>
 
 <script>
+import VDistpicker from 'v-distpicker'
+
 export default {
   name: 'CommodityList',
   props: {
@@ -166,7 +193,9 @@ export default {
         }
       ], // 所有列表数据
       item: {}, // 当前商品数据
-      activeName: 'baseParam' // 当前激活的标签页
+      activeName: 'baseParam', // 当前激活的标签页
+      areaStartCode: '', // 地址
+      buyNum: 1 // 购买数量
     }
   },
   created () {
@@ -175,7 +204,35 @@ export default {
   methods: {
     handleClick (tab, event) {
       console.log(tab, event)
+    },
+    toBack () {
+      this.$emit('changeShowState', true)
+    },
+    changeAddress: function (data) {
+      // this.provincedata = data.province.value // 省名称
+      // this.citydata = data.city.value // 市名称
+      // this.provincecode = data.province.code // 省编码
+      // this.citycode = data.city.code // 市编码
+      console.log(data.area.code) // 打印地区编码
+      console.log(data.area.value) // 打印地区名称
+      this.areaStartCode = data.area.code // 将编码赋值给form，给后端时候，template中需加入 <el-form></el-form>
+    },
+    changeNumber (value) {
+      this.buyNum = value
+    },
+
+    /**
+     * 加购
+     */
+    toAddCart () {
+      this.$message('加入购物车成功')
+    },
+    toCollect () {
+      this.$message('收藏成功')
     }
+  },
+  components: {
+    VDistpicker
   }
 }
 </script>
@@ -187,28 +244,57 @@ export default {
     -webkit-line-clamp: $val;
     overflow: hidden;
   }
-  .c-title{
+  .panel {
+    padding: 0;
+  }
+  .c-title {
     padding-right: 8px;
-    font-size: 18px;
+    font-size: 22px;
     line-height: 50px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
   }
-  .c-desc{
+  .c-desc {
     color: #828181;
     padding-left: 8px;
     padding-right: 8px;
     font-size: 14px;
     line-height: 24px;
   }
-  .flex-width{
-    img{
+  .flex-width {
+    img {
       width: 100%;
     }
   }
-  .el-button{
+  .price-block{
+    font-size: 18px;
+    line-height: 40px;
+  }
+  .buy-num-block{
+    margin-top: 24px;
+  }
+  .el-button {
     margin-top: 10px;
     padding: 4px 15px;
+  }
+  label.name{
+    display: inline-block;
+    width: 90px;
+    &+div{
+      display: inline-block;
+    }
+  }
+  .flex-auto{
+    font-size: 1rem;
+    &>div{
+      margin-bottom: 24px;
+    }
+    &>h3{
+      margin-bottom: 4px;
+    }
+    .desc-block{
+      margin-bottom: 14px;
+    }
   }
 </style>

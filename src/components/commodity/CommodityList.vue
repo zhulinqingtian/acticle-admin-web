@@ -29,6 +29,7 @@
     <div v-show="!showMain">
       <CommodityDetail
         :currentData="currentData"
+        @changeShowState="changeShowState"
       />
     </div>
     <!-- 商品详情 -->
@@ -185,6 +186,13 @@ export default {
           done()
         })
         .catch(_ => {})
+    },
+
+    /**
+     * 组件的展示
+     */
+    changeShowState (state) {
+      this.showMain = state
     }
   },
   components: {
@@ -233,7 +241,7 @@ export default {
       margin: 10px;
       border: 1px solid #f0f0f0;
       cursor: pointer;
-      transition: border-color linear 0.5s;
+      transition: border-color linear 0.4s;
       text-align: center;
       position: relative;
       &:hover{
@@ -241,8 +249,8 @@ export default {
         border-color: #47be22;
         .operate-block{
           animation: moveToTop linear 0.4s;
-          /*循环1次 */
-          animation-iteration-count: 1;
+          animation-iteration-count: 1; /*循环1次 */
+          animation-fill-mode: forwards; /*让动画停留在最后一帧 */
         }
       }
       .operate-block{
@@ -254,15 +262,7 @@ export default {
         background-color: rgba(0,0,0,0.4);
         button{
           display: inline-block;
-          margin-top: 40px;
-        }
-      }
-      @keyframes moveToTop {
-        from {
-          top: 100%;
-        }
-        to{
-          top: 0;
+          margin-top: 135px;
         }
       }
       .c-title{
@@ -278,6 +278,10 @@ export default {
         padding: 4px 15px;
       }
     }
+  }
+  @keyframes moveToTop {
+    0%{top: 100%;}
+    100%{top: 0%;}
   }
   .el-drawer__body{
     .c-title{
