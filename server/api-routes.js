@@ -11,11 +11,11 @@ exports.setup = function setup (app) {
     console.log('body:', req.body) // post请求参数
     console.log('param:', req.param)
 
-    res.send({
+    /* res.send({
       message: 'success',
       status: 'OK',
       data: req.body
-    })
+    }) */
   })
   app.all('/api/*', apiProxy.proxy)
 }

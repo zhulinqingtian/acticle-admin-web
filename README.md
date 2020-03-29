@@ -125,6 +125,103 @@ this.$router是Vue-Router的实例，需要导航到不同路由则用 `this.$ro
 全局路由对象,任何页面都可以调用 push()、 go()等方法
 
 
+## json-server
+
+### 一、安装
+npm install json-server --save
+
+### 二、配置
+```javascript 1.8
+// 在package.json的scripts中新增命令配置，默认3000端口
+{
+  "json:server": "json-server --watch json-server/db.json"
+}
+
+// 修改json-server运行的端口
+json-server --watch --port 3001 db.json
+```
+
+### 三、使用json-server支持的功能，尝试进行数据访问
+
+```javascript 1.8
+// http://localhost:3000/db  -- 访问db.json
+// http://localhost:3000/posts
+// http://localhost:3000/comments
+// http://localhost:3000/profile
+// http://localhost:3000/users
+// http://localhost:3000/companies
+// http://localhost:3000/getCommodityList
+
+```
+
+```json
+{
+  "testData": [
+      {
+        "id": "001",
+        "name": "张三"
+      },
+      {
+        "id": "002",
+        "name": "喵喵"
+      },
+      {
+        "id": "002",
+        "name": "Sherry"
+      }
+    ]
+}
+```
+
+```javascript 1.8
+// http://localhost:3000/testData/001
+
+{  "id": "001", "name": "张三" }
+```
+
+### 四、根据其他属性进行过滤
+如果想根据其他属性进行过滤，采用：
+```javascript 1.8
+// http://localhost:3000/testData?name=Sherry
+```
+
+这里，通过?传参过滤，得到的结果是一个数组。（id过滤，拿到的是一个对象）
+
+即：拿到所有name=Sherry的项。即使结果只有一项，也会返回包含一个数据的数组。
+
+（1） 多层嵌套
+
+如果需要用json-server模拟多层路由嵌套，无法通过db.json中数据的多层嵌套，达到模拟多层路由嵌套的目的。
+
+换句话说，路由只能匹配到db.json这个json最外层的key值。也就是例子中的 getCommodityList、testData。而里层的key值，都不会被路由匹配。
+
+（2） 传值匹配
+
+/getCommodityList/001 这样的访问方式，相当于对 /getCommodityList 这个路由下的数据，进行一个过滤，类似于从列表页进入详情/编辑页。
+也就是说，/getCommodityList/001 相当于在模拟 /getCommodityList/:id 这样的访问方式，访问的仍然是/getCommodityList这个接口。这和严格意义上的路由匹配，是不一样的。
+
+> 过滤数据：（只能通过id过滤数据 且 只支持匹配第一层数据的id）
+
+> 只有数组数据，支持id过滤。进一步印证了，这种访问方式类似于列表页进入详情/编辑页。
+
+（3） 其他类型请求（POST, PUT, PATCH ,DELETE），json-server的行为
+
+行为：向/data1对应的数组添加新对象。
+
+对象的属性取决于POST请求中body的设置。
+
+如果body没有设置，json-server仍然会给/data1数组添加一个新对象，并赋予一个默认的id值，新对象有且仅有id这一个属性。
+
+如果用户只设置了id以外的属性，json-server也会给新对象生成一个随机的id值。
+
+（4）自定义路由
+
+
+
+
+
+
+
 ### TODO
 
 -[x] 热加载

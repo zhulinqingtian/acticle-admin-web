@@ -2,7 +2,7 @@
 
 // var request = require('request')
 
-var apiMemberServerUrl = global.My_CONF.proxyTable['/api']
+var apiServerUrl = global.My_CONF.proxyTable['/api']
 
 function isJson (req) {
   var str = req.headers['content-type'] || ''
@@ -13,7 +13,7 @@ function isJson (req) {
 exports.proxy = function (req, res) {
   var method = req.method
   var options = {
-    url: apiMemberServerUrl + req.path,
+    url: apiServerUrl + req.path.replace('/api', ''),
     method: method
   }
 

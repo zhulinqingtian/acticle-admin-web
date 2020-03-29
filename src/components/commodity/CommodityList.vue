@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import API from '../../assets/js/common/api.js'
 import CommodityDetail from './CommodityDetail'
 
 export default {
@@ -168,6 +169,14 @@ export default {
         page: this.currentPage,
         size: this.currentSize
       }
+      API.getCommodityList()
+        .then(res => {
+          console.log('res:', res)
+        })
+        .catch(err => {
+          console.log('err:', err)
+        })
+
       this.list = this.listData.slice(param.size * param.page + 1 - param.size, param.size * param.page + 1)
     },
     viewDetail (item) {
