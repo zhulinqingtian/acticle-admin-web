@@ -52,9 +52,22 @@ var config = {
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
 
-    // Paths
+    /**
+     * 打包后左右文件存放的目录名及路径
+     */
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
+
+    /**
+     * assetsSubDirectory：
+     * 配置打包后在dist目录中, 除了 index.html 之外的静态资源要存放的路径
+     * 打包时，通过 CopyWebpackPlugin 插件将静态资源copy到这里
+     */
+    assetsSubDirectory: 'static-assets',
+
+    /**
+     * assetsPublicPath:
+     * 代表打包后，index.html里面引用资源的的相对地址
+     */
     assetsPublicPath: '/',
 
     proxyTable: {

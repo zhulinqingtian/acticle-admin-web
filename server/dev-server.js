@@ -36,7 +36,7 @@ app.set('view engine', 'html')
 app.engine('.html', ejs.__express)
 
 // 给网站设置图标favicon.ico
-app.use(favicon(path.join(__dirname, '../src/assets/img/logo.jpg')))
+app.use(favicon(path.join(__dirname, '../src/assets/img/favicon.ico')))
 
 // 在终端打印日志 （状态码带有色彩的日志输出）
 app.use(logger('dev'))

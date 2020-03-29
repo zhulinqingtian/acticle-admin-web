@@ -15,7 +15,7 @@ function locationQuery () {
 }
 
 function setTitle (title) {
-  document.title = title || '夏猫会员'
+  document.title = title || '管理后台'
   if (browser.isIOS) {
     const i = document.createElement('iframe')
     i.src = '/images/empty.png'
