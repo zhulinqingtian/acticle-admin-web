@@ -1,8 +1,8 @@
 'use strict'
 
-// var request = require('request')
+var request = require('request')
 
-var apiMemberServerUrl = global.My_CONF.proxyTable['/api']
+var apiServerUrl = global.My_CONF.proxyTable['/api']
 
 function isJson (req) {
   var str = req.headers['content-type'] || ''
@@ -13,7 +13,7 @@ function isJson (req) {
 exports.proxy = function (req, res) {
   var method = req.method
   var options = {
-    url: apiMemberServerUrl + req.path,
+    url: apiServerUrl + req.path,
     method: method
   }
 
@@ -52,22 +52,24 @@ exports.proxy = function (req, res) {
    * ===================================================
    * qs.stringify({ a: ['b', 'c'] }, { arrayFormat: 'brackets' });  // 'a[]=b&a[]=c'
    */
-  // options.qsStringifyOptions = {arrayFormat: 'brackets'};
+  // options.qsStringifyOptions = {arrayFormat: 'brackets'}
 
-  // toRequest (options, res)
+  toRequest(options, res)
 }
 
 // java端发起请求
-// function toRequest (options, res) {
-//   request(options, function (err, response, body) {
-//     if (err) {
-//       res.send('发生错误')
-//       return
-//     }
-//     if (response.statusCode !== 200) {
-//       res.send('发生错误')
-//       return
-//     }
-//     res.send(body)
-//   })
-// }
+function toRequest (options, res) {
+  request(options, function (err, response, body) {
+    console.log('req err:', err)
+    console.log('req response:', response.statusCode)
+    if (err) {
+      res.send('发生错误')
+      return
+    }
+    if (response.statusCode !== 200) {
+      res.send('发生错误')
+      return
+    }
+    res.send(body)
+  })
+}

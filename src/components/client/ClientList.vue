@@ -1,14 +1,14 @@
 <template>
   <div class="panel">
     <div class="main-content" v-show="showMain">
-      <p class="module-title">商品列表</p>
+      <p class="module-title">用户列表</p>
       <ul class="list-container">
         <li v-for="(item, index) in list" :key="index">
           <h3 class="c-title">{{item.title}}</h3>
           <el-image :src="item.src || '/img/slider/01.png'" lazy></el-image>
           <p :title="item.desc" class="c-desc ellipse">{{item.desc}}</p>
           <div class="operate-block">
-            <el-button type="primary" size="small" @click="viewDetail(item)">商品介绍</el-button>
+            <el-button type="primary" size="small" @click="viewDetail(item)">用户介绍</el-button>
             <el-button type="primary" size="small" @click="viewMore(item)">详细信息</el-button>
           </div>
         </li>
@@ -47,7 +47,7 @@
 
 <script>
 import API from '../../assets/js/common/api.js'
-import CommodityDetail from './CommodityDetail'
+import CommodityDetail from './ClientDetail'
 
 export default {
   name: 'CommodityList',
@@ -152,24 +152,24 @@ export default {
     }
   },
   created () {
-    this.getCommodityList()
+    this.getClientList()
   },
   methods: {
     changePages (page = 1) {
       this.currentPage = page
-      this.getCommodityList()
+      this.getClientList()
     },
     changeSize (size = 5) {
       this.currentPage = 0
       this.currentSize = size
-      this.getCommodityList()
+      this.getClientList()
     },
-    getCommodityList () {
+    getClientList () {
       const param = {
         page: this.currentPage,
         size: this.currentSize
       }
-      API.getCommodityList()
+      API.getClientList()
         .then(res => {
           this.list = res.slice(param.size * param.page + 1 - param.size - 1, param.size * param.page)
         })
@@ -183,8 +183,9 @@ export default {
       this.$message('这是' + item.title)
     },
     viewMore (item) {
-      this.currentData = item
-      this.showMain = false
+      // this.currentData = item
+      // this.showMain = false
+      this.$router.push({path: '/view/clientDetail/' + item.id})
     },
     handleClose (done) {
       // 关闭前的回调，会暂停 Drawer 的关闭

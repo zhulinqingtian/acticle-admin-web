@@ -1,5 +1,5 @@
 import {appRouter} from '@/router/web-router'
-console.log('data:', appRouter)
+
 const routerData = {
   state: {
     routers: []

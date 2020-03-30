@@ -85,5 +85,18 @@ export default {
   },
   login (param) {
     return fetch('/api/login', param, 'post')
+  },
+
+  /**
+   * 获取商品列表
+   */
+  getCommodityList (param) {
+    return fetch('/api/getCommodityList', param, 'get')
+  },
+  /**
+   * 获取用户列表
+   */
+  getClientList (param) {
+    return fetch('/api/getClientList', param, 'get')
   }
 }

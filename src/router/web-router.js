@@ -16,6 +16,9 @@ const AllIcons = r => require.ensure([], () => r(require('@/components/icons/All
 const CommodityList = r => require.ensure([], () => r(require('@/components/commodity/CommodityList.vue')))
 const CommodityDetail = r => require.ensure([], () => r(require('@/components/commodity/CommodityDetail.vue')))
 
+const ClientList = r => require.ensure([], () => r(require('@/components/client/ClientList.vue')))
+const ClientDetail = r => require.ensure([], () => r(require('@/components/client/ClientDetail.vue')))
+
 export const router = [
   {
     path: '/login',
@@ -84,6 +87,30 @@ export const router = [
         iconCls: 'el-icon-cold-drink', // 图标样式class
         meta: { title: '商品详情' },
         component: CommodityDetail,
+        children: []
+      }
+    ]
+  },
+  {
+    path: '/view',
+    name: '用户展示',
+    iconCls: 'el-icon-s-custom',
+    component: MainLayout,
+    children: [
+      {
+        path: 'clientList',
+        name: 'ClientList',
+        iconCls: 'el-icon-s-custom', // 图标样式class
+        meta: { title: '用户列表' },
+        component: ClientList,
+        children: []
+      },
+      {
+        path: 'clientDetail/:id',
+        name: 'ClientDetail',
+        iconCls: 'el-icon-s-custom', // 图标样式class
+        meta: { title: '用户详情' },
+        component: ClientDetail,
         children: []
       }
     ]

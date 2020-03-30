@@ -12,7 +12,7 @@ var config = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': 'http://localhost:10020'
+      '/api': 'http://localhost:3000'
     },
 
     // Various Dev Server settings
@@ -71,7 +71,7 @@ var config = {
     assetsPublicPath: '/',
 
     proxyTable: {
-      '/api': 'http://localhost:10020'
+      '/api': 'http://localhost:3000'
     },
 
     /**

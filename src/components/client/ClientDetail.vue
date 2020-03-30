@@ -1,58 +1,95 @@
 <template>
   <div class="panel">
-    <div class="main-content" v-show="showMain">
-      <p class="module-title">商品列表</p>
-      <ul class="list-container">
-        <li v-for="(item, index) in list" :key="index">
-          <h3 class="c-title">{{item.title}}</h3>
-          <el-image :src="item.src || '/img/slider/01.png'" lazy></el-image>
-          <p :title="item.desc" class="c-desc ellipse">{{item.desc}}</p>
-          <div class="operate-block">
-            <el-button type="primary" size="small" @click="viewDetail(item)">商品介绍</el-button>
-            <el-button type="primary" size="small" @click="viewMore(item)">详细信息</el-button>
-          </div>
-        </li>
-      </ul>
-      <el-pagination
-        background
-        layout="prev, pager, next"
-        :page-size="currentSize"
-        :current-page="currentPage"
-        :page-sizes="sizesList"
-        @current-change="changePages"
-        @size-change="changeSize"
-        :total="listData.length">
-      </el-pagination>
+    <p class="module-title">用户详情</p>
+    <div class="flex-container">
+      <div class="flex-width flex-width-500">
+        <el-carousel trigger="click" :autoplay=autoplay height="350px">
+          <el-carousel-item v-for="x in imgList" :key="x.index">
+            <img :src="x.src" alt="" lazy>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+      <div class="flex-auto">
+        <h3 class="c-title">
+          <label class="name">用户名称：</label>
+          {{item.title}}
+        </h3>
+        <div class="desc-block">
+          <p class="c-desc">{{item.desc}}</p>
+        </div>
+        <div class="price-block">
+          <label class="name">登录天数：</label>
+          <span>5</span>
+        </div>
+        <div class="city-block">
+          <label class="name">收货地址：</label>
+          <v-distpicker
+            @selected="changeAddress"
+            province="江苏省"
+            city="南京市"
+            area="雨花台区"
+            :rows="17"/>
+        </div>
+        <div class="buy-block">
+          <el-button @click="toBack" type="primary" size="small">返回</el-button>
+        </div>
+      </div>
     </div>
 
-    <!-- 子组件 -->
-    <div v-show="!showMain">
-      <CommodityDetail
-        :currentData="currentData"
-        @changeShowState="changeShowState"
-      />
-    </div>
-    <!-- 商品详情 -->
-    <el-drawer
-      title="商品详情"
-      :visible.sync="showDetails"
-      :direction="direction"
-      :before-close="handleClose">
-      <h3 class="c-title">{{currentData.title}}</h3>
-      <el-image :src="currentData.src" lazy class="detail-pic"></el-image>
-      <p class="c-desc">{{currentData.desc}}</p>
-    </el-drawer>
+    <!-- 标签页 -->
+    <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tab-pane label="基本参数" name="baseParam">
+        基本参数
+      </el-tab-pane>
+      <el-tab-pane label="详情展示" name="details">
+        详情展示
+      </el-tab-pane>
+      <el-tab-pane label="宝贝评价" name="evaluates">
+        宝贝评价
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <script>
-import API from '../../assets/js/common/api.js'
-import CommodityDetail from './CommodityDetail'
+import VDistpicker from 'v-distpicker'
 
 export default {
   name: 'CommodityList',
+  watch: {
+    currentData (data) {
+      this.item = data
+    }
+  },
   data () {
     return {
+      autoplay: false,
+      imgList: [
+        {
+          index: 1,
+          src: '/img/slider/01.png'
+        },
+        {
+          index: 2,
+          src: '/img/slider/02.png'
+        },
+        {
+          index: 3,
+          src: '/img/slider/03.png'
+        },
+        {
+          index: 4,
+          src: '/img/slider/04.png'
+        },
+        {
+          index: 5,
+          src: '/img/slider/05.png'
+        },
+        {
+          index: 6,
+          src: '/img/slider/06.png'
+        }
+      ],
       listData: [
         {
           id: 1,
@@ -141,69 +178,38 @@ export default {
           src: '/img/slider/06.png'
         }
       ], // 所有列表数据
-      list: [], // 当前页数据
-      currentData: {}, // 当前正在编辑查看的item
-      showDetails: false, // 是否展示详情
-      direction: 'rtl', // 详情打开的方向
-      currentPage: 1, // 当前页码
-      currentSize: 10, // 当前每页条数
-      sizesList: [10, 20, 30, 40, 50, 100],
-      showMain: true // 是否显示列表
+      item: {}, // 当前商品数据
+      activeName: 'baseParam', // 当前激活的标签页
+      areaStartCode: '', // 地址
+      currentId: '' // 当前数据的id
     }
   },
   created () {
-    this.getCommodityList()
+    this.currentId = this.$route.params
+    this.getInfoById()
   },
   methods: {
-    changePages (page = 1) {
-      this.currentPage = page
-      this.getCommodityList()
-    },
-    changeSize (size = 5) {
-      this.currentPage = 0
-      this.currentSize = size
-      this.getCommodityList()
-    },
-    getCommodityList () {
-      const param = {
-        page: this.currentPage,
-        size: this.currentSize
-      }
-      API.getCommodityList()
-        .then(res => {
-          this.list = res.slice(param.size * param.page + 1 - param.size - 1, param.size * param.page)
-        })
-        .catch(err => {
-          this.$message('这是' + err)
-        })
-    },
-    viewDetail (item) {
-      this.currentData = item
-      this.showDetails = true
-      this.$message('这是' + item.title)
-    },
-    viewMore (item) {
-      this.currentData = item
-      this.showMain = false
-    },
-    handleClose (done) {
-      // 关闭前的回调，会暂停 Drawer 的关闭
-      this.$confirm('确认关闭？')
-        .then(_ => {
-          done()
-        })
-        .catch(_ => {})
-    },
+    getInfoById () {
 
-    /**
-     * 组件的展示
-     */
-    changeShowState (state) {
-      this.showMain = state
+    },
+    handleClick (tab, event) {
+      console.log(tab, event)
+    },
+    toBack () {
+      this.$router.push({path: '/view/clientList'})
+    },
+    changeAddress: function (data) {
+      // this.provincedata = data.province.value // 省名称
+      // this.citydata = data.city.value // 市名称
+      // this.provincecode = data.province.code // 省编码
+      // this.citycode = data.city.code // 市编码
+      console.log(data.area.code) // 打印地区编码
+      console.log(data.area.value) // 打印地区名称
+      this.areaStartCode = data.area.code // 将编码赋值给form，给后端时候，template中需加入 <el-form></el-form>
     }
   },
   components: {
-    CommodityDetail
+    VDistpicker
   }
 }
 </script>
@@ -215,95 +221,50 @@ export default {
     -webkit-line-clamp: $val;
     overflow: hidden;
   }
-  @mixin text-overflow-multi($val) {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: $val;
-    overflow: hidden;
+  .panel {
+    padding: 0;
   }
-  .c-title{
-    text-align: center;
+  .c-title {
+    padding-right: 8px;
+    font-size: 22px;
+    line-height: 50px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
   }
-  .c-desc{
+  .c-desc {
     color: #828181;
     padding-left: 8px;
     padding-right: 8px;
-    text-indent: 25px;
-    &.ellipse{
-      @include text-overflow-multi(2)
+    font-size: 14px;
+    line-height: 24px;
+  }
+  .flex-width {
+    img {
+      width: 100%;
     }
   }
-  .list-container{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    li{
-      width: 260px;
-      height: 305px;
-      overflow: hidden;
-      margin: 10px;
-      border: 1px solid #f0f0f0;
-      cursor: pointer;
-      transition: border-color linear 0.4s;
-      text-align: center;
-      position: relative;
-      &:hover{
-        border-width: 2px;
-        border-color: #47be22;
-        .operate-block{
-          animation: moveToTop linear 0.4s;
-          animation-iteration-count: 1; /*循环1次 */
-          animation-fill-mode: forwards; /*让动画停留在最后一帧 */
-        }
-      }
-      .operate-block{
-        position: absolute;
-        height: 305px;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background-color: rgba(0,0,0,0.4);
-        button{
-          display: inline-block;
-          margin-top: 135px;
-        }
-      }
-      .c-title{
-        font-size: 16px;
-        line-height: 50px;
-      }
-      .c-desc{
-        font-size: 12px;
-        line-height: 20px;
-      }
-      .el-button{
-        margin-top: 10px;
-        padding: 4px 15px;
-      }
+  .el-button {
+    margin-top: 10px;
+    padding: 4px 15px;
+  }
+  label.name{
+    display: inline-block;
+    width: 90px;
+    &+div{
+      display: inline-block;
     }
   }
-  @keyframes moveToTop {
-    0%{top: 100%;}
-    100%{top: 0%;}
-  }
-  .el-drawer__body{
-    .c-title{
-      font-size: 18px;
-      line-height: 50px;
+  .flex-auto{
+    font-size: 1rem;
+    &>div{
+      margin-bottom: 24px;
     }
-    .c-desc{
-      text-align: center;
-      font-size: 14px;
-      line-height: 24px;
+    &>h3{
+      margin-bottom: 4px;
     }
-    .detail-pic{
-      width: 350px;
-      display: block;
-      margin: 20px auto;
+    .desc-block{
+      margin-bottom: 14px;
     }
   }
 </style>

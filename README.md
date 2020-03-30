@@ -125,6 +125,82 @@ this.$router是Vue-Router的实例，需要导航到不同路由则用 `this.$ro
 全局路由对象,任何页面都可以调用 push()、 go()等方法
 
 
+## json-server
+
+### 一、安装
+npm install json-server --save
+
+### 二、配置
+```javascript 1.8
+// 在package.json的scripts中新增命令配置，默认3000端口
+{
+  "json:server": "json-server --watch json-server/db.json"
+}
+
+// 修改json-server运行的端口
+json-server --watch --port 3001 db.json
+```
+
+### 三、使用json-server支持的功能，尝试进行数据访问
+
+mock的服务要开启
+start的服务也要开启
+
+```javascript 1.8
+// http://localhost:3000/db  -- 访问db.json
+// http://localhost:3000/posts
+// http://localhost:3000/comments
+// http://localhost:3000/profile
+// http://localhost:3000/users
+// http://localhost:3000/companies
+// http://localhost:3000/getCommodityList
+
+```
+
+```json
+{
+  "testData": [
+      {
+        "id": "001",
+        "name": "张三"
+      },
+      {
+        "id": "002",
+        "name": "喵喵"
+      },
+      {
+        "id": "002",
+        "name": "Sherry"
+      }
+    ]
+}
+```
+
+```javascript 1.8
+// http://localhost:3000/testData/001
+
+{  "id": "001", "name": "张三" }
+```
+
+（4）自定义路由
+
+可使用单独的route.json文件，进行自定义路由。（类似于代理转发，拦截请求，并重定向访问
+
+```json
+{
+
+    "/data/*": "/$1",  // /data/data1 ==> /data1
+
+    "/:resource/:id/show": "/:resource/:id",  // /data1/001/show ==> /data1/001
+
+    "/data1/:name": "/data1?name=:name", //  /data1/Sherry ==> /data1?name=Sherry
+
+    "/:anyArray\\?id=:id": "/:anyArray/:id" //  /data1?id=002 ==> /data/002
+}
+```
+
+
+
 ### TODO
 
 -[x] 热加载
