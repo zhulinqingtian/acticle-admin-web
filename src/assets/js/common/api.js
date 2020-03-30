@@ -92,5 +92,11 @@ export default {
    */
   getCommodityList (param) {
     return fetch('/api/getCommodityList', param, 'get')
+  },
+  /**
+   * 获取用户列表
+   */
+  getClientList (param) {
+    return fetch('/api/getClientList', param, 'get')
   }
 }

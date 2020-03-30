@@ -23,42 +23,49 @@
       "email": "111@qq.com",
       "age": "20",
       "id": 1,
-      "companyId": 1    },
+      "companyId": 1
+    },
     {
       "name": "dede",
       "phone": "123456789",
       "email": "222@qq.com",
       "age": "30",
       "id": 2,
-      "companyId": 2    },
+      "companyId": 2
+    },
     {
       "name": "wf",
       "phone": "123456789",
       "email": "333@qq.com",
       "age": "23",
       "id": 3,
-      "companyId": 3    },
+      "companyId": 3
+    },
     {
       "name": "mj",
       "phone": "123456789",
       "email": "444@qq.com",
       "age": "45",
       "id": 4,
-      "companyId": 3    }
+      "companyId": 3
+    }
   ],
   "companies": [
     {
       "id": 1,
       "name": "Apple",
-      "description": "Apple lalala!"    },
+      "description": "Apple lalala!"
+    },
     {
       "id": 2,
       "name": "Microsoft",
-      "description": "Microsoft lalala!"    },
+      "description": "Microsoft lalala!"
+    },
     {
       "id": 3,
       "name": "Google",
-      "description": "Google lalala!"    }
+      "description": "Google lalala!"
+    }
   ],
   "getCommodityList": {
     "status": "OK",
@@ -150,14 +157,120 @@
       }
     ]
   },
-  "testData": [
-    {
-      "id": "001",
-      "name": "张三"
-    },
-    {
-      "id": "002",
-      "name": "喵喵"
-    }
-  ]
+  "testData": {
+    "status": "OK",
+    "message": "",
+    "data": [
+      {
+        "id": "001",
+        "name": "张三"
+      },
+      {
+        "id": "002",
+        "name": "喵喵"
+      }
+    ]
+  },
+  "getClientDetail": {
+    "status": "OK",
+    "message": "",
+    "data": [
+      {
+        "id": "002",
+        "title": "又见满天星",
+        "desc": "早已过了做梦的年龄，也不是个浪漫之人，喜欢花，却很少买。",
+        "src": "/img/slider/02.png"
+      }
+    ]
+  },
+  "getClientList": {
+    "status": "OK",
+    "message": "",
+    "data": [
+      {
+        "id": "001",
+        "title": "魏欣欣",
+        "desc": "早已过了做梦的年龄，也不是个浪漫之人，喜欢花，却很少买。",
+        "src": "/img/slider/01.png"
+      },
+      {
+        "id": "002",
+        "title": "又见满天星",
+        "desc": "早已过了做梦的年龄，也不是个浪漫之人，喜欢花，却很少买。",
+        "src": "/img/slider/02.png"
+      },
+      {
+        "id": "003",
+        "title": "白色满天星",
+        "desc": "总是这样认为，鲜花的生命过于短暂，它们总是在我的面前无奈地凋零，一片又一片地落下，无论我怎样的精心呵护，却也无法挽留住它们瞬间的美丽。",
+        "src": "/img/slider/03.png"
+      },
+      {
+        "id": "004",
+        "title": "绿色满天星",
+        "desc": "花开，花落，总带着一种凄凉，这是我最不愿看到的。所以，我宁愿买绢花，虽然是一种不真实的美，却也是永恒的美丽。",
+        "src": "/img/slider/04.png"
+      },
+      {
+        "id": "005",
+        "title": "黄色满天星-橙色满天星毛茛花束",
+        "desc": "仔细看那些细细小小的白色花朵，它们太普通了，小的毫不起眼，任凭你怎样的细数，却也数不出它到底有几层花瓣，可就是这样普通至极的满天星却让我对它独有情钟。",
+        "src": "/img/slider/05.png"
+      },
+      {
+        "id": "006",
+        "title": "紫色满天星",
+        "desc": "星河明淡，春来深浅。红莲正、满城开遍。禁街行乐，暗尘香拂面。皓月随人近远。天半鳌山，光动凤楼两观。东风静、珠帘不卷。玉辇将归，云外闻弦管。认得宫花影转。",
+        "src": "/img/slider/06.png"
+      },
+      {
+        "id": "007",
+        "title": "紫色满天星-2",
+        "desc": "天上不会夜夜都有晶莹闪烁的星，夜空有时阴云笼罩，漆黑如墨，然而只要有你温柔的目光，我的心中便有一片灿烂的星光。",
+        "src": "/img/slider/06.png"
+      },
+      {
+        "id": "008",
+        "title": "早安，满天星。",
+        "desc": "早已过了做梦的年龄，也不是个浪漫之人，喜欢花，却很少买。",
+        "src": "/img/slider/01.png"
+      },
+      {
+        "id": "009",
+        "title": "又见满天星",
+        "desc": "早已过了做梦的年龄，也不是个浪漫之人，喜欢花，却很少买。",
+        "src": "/img/slider/02.png"
+      },
+      {
+        "id": "010",
+        "title": "白色满天星",
+        "desc": "总是这样认为，鲜花的生命过于短暂，它们总是在我的面前无奈地凋零，一片又一片地落下，无论我怎样的精心呵护，却也无法挽留住它们瞬间的美丽。",
+        "src": "/img/slider/03.png"
+      },
+      {
+        "id": "011",
+        "title": "绿色满天星",
+        "desc": "花开，花落，总带着一种凄凉，这是我最不愿看到的。所以，我宁愿买绢花，虽然是一种不真实的美，却也是永恒的美丽。",
+        "src": "/img/slider/04.png"
+      },
+      {
+        "id": "012",
+        "title": "黄色满天星-橙色满天星毛茛花束",
+        "desc": "仔细看那些细细小小的白色花朵，它们太普通了，小的毫不起眼，任凭你怎样的细数，却也数不出它到底有几层花瓣，可就是这样普通至极的满天星却让我对它独有情钟。",
+        "src": "/img/slider/05.png"
+      },
+      {
+        "id": "013",
+        "title": "紫色满天星",
+        "desc": "星河明淡，春来深浅。红莲正、满城开遍。禁街行乐，暗尘香拂面。皓月随人近远。天半鳌山，光动凤楼两观。东风静、珠帘不卷。玉辇将归，云外闻弦管。认得宫花影转。",
+        "src": "/img/slider/06.png"
+      },
+      {
+        "id": "014",
+        "title": "紫色满天星-2",
+        "desc": "天上不会夜夜都有晶莹闪烁的星，夜空有时阴云笼罩，漆黑如墨，然而只要有你温柔的目光，我的心中便有一片灿烂的星光。",
+        "src": "/img/slider/06.png"
+      }
+    ]
+  }
 }

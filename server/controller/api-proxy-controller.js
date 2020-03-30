@@ -70,7 +70,6 @@ function toRequest (options, res) {
       res.send('发生错误')
       return
     }
-    console.log('req.path body:', body)
     res.send(body)
   })
 }

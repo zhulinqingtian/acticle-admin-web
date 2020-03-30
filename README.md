@@ -199,9 +199,6 @@ start的服务也要开启
 }
 ```
 
-封装自定义文件(post-to-get.js)后，运行：
-> npm run json-server-custom
-
 
 
 ### TODO
