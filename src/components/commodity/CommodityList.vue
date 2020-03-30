@@ -3,9 +3,9 @@
     <div class="main-content" v-show="showMain">
       <p class="module-title">商品列表</p>
       <ul class="list-container">
-        <li v-for="item in list" :key="item.id">
+        <li v-for="(item, index) in list" :key="index">
           <h3 class="c-title">{{item.title}}</h3>
-          <el-image :src="item.src" lazy></el-image>
+          <el-image :src="item.src || '/img/slider/01.png'" lazy></el-image>
           <p :title="item.desc" class="c-desc ellipse">{{item.desc}}</p>
           <div class="operate-block">
             <el-button type="primary" size="small" @click="viewDetail(item)">商品介绍</el-button>
@@ -165,19 +165,17 @@ export default {
       this.getCommodityList()
     },
     getCommodityList () {
-      // const param = {
-      //   page: this.currentPage,
-      //   size: this.currentSize
-      // }
+      const param = {
+        page: this.currentPage,
+        size: this.currentSize
+      }
       API.getCommodityList()
         .then(res => {
-          console.log('== res:', res)
+          this.list = res.slice(param.size * param.page + 1 - param.size - 1, param.size * param.page)
         })
         .catch(err => {
-          console.log('err:', err)
+          this.$message('这是' + err)
         })
-
-      // this.list = this.listData.slice(param.size * param.page + 1 - param.size - 1, param.size * param.page)
     },
     viewDetail (item) {
       this.currentData = item

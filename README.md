@@ -143,6 +143,9 @@ json-server --watch --port 3001 db.json
 
 ### 三、使用json-server支持的功能，尝试进行数据访问
 
+mock的服务要开启
+start的服务也要开启
+
 ```javascript 1.8
 // http://localhost:3000/db  -- 访问db.json
 // http://localhost:3000/posts
