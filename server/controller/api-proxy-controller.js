@@ -13,7 +13,7 @@ function isJson (req) {
 exports.proxy = function (req, res) {
   var method = req.method
   var options = {
-    url: apiServerUrl + req.path.replace('/api', ''),
+    url: apiServerUrl + req.path,
     method: method
   }
 

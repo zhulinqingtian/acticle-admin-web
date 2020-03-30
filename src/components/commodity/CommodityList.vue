@@ -165,19 +165,19 @@ export default {
       this.getCommodityList()
     },
     getCommodityList () {
-      const param = {
-        page: this.currentPage,
-        size: this.currentSize
-      }
+      // const param = {
+      //   page: this.currentPage,
+      //   size: this.currentSize
+      // }
       API.getCommodityList()
         .then(res => {
-          console.log('res:', res)
+          console.log('== res:', res)
         })
         .catch(err => {
           console.log('err:', err)
         })
 
-      this.list = this.listData.slice(param.size * param.page + 1 - param.size, param.size * param.page + 1)
+      // this.list = this.listData.slice(param.size * param.page + 1 - param.size - 1, param.size * param.page)
     },
     viewDetail (item) {
       this.currentData = item
