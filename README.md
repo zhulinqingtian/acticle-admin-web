@@ -131,14 +131,17 @@ this.$router是Vue-Router的实例，需要导航到不同路由则用 `this.$ro
 npm install json-server --save
 
 ### 二、配置
-```javascript 1.8
-// 在package.json的scripts中新增命令配置，默认3000端口
+在package.json的scripts中新增命令配置，默认3000端口
+```json
 {
   "json:server": "json-server --watch json-server/db.json"
 }
-
+```
 // 修改json-server运行的端口
-json-server --watch --port 3001 db.json
+```json
+{
+  "json-server": "json-server --watch --port 3001 db.json"
+}
 ```
 
 ### 三、使用json-server支持的功能，尝试进行数据访问
@@ -176,9 +179,8 @@ start的服务也要开启
 }
 ```
 
-```javascript 1.8
-// http://localhost:3000/testData/001
-
+http://localhost:3000/testData/001
+```json
 {  "id": "001", "name": "张三" }
 ```
 
@@ -207,12 +209,12 @@ start的服务也要开启
 -[x] 静态资源处理
 -[x] css预处理器使用（sass）
 -[ ] history
--[ ] 封装axios请求 - 接口处理
+-[x] 封装axios请求 - 接口处理
 -[x] 路由处理
--[ ] 代理
+-[x] 代理
 -[ ] 登录验证
 -[ ] store存储
--[ ] [使用json-server做mock假数据](https://www.jianshu.com/p/961c963bec35)
-
+-[x] [使用json-server做mock假数据](https://www.jianshu.com/p/961c963bec35)
+-[] 添加指令
 
 

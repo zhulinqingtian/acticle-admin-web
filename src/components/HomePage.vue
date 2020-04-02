@@ -10,6 +10,9 @@
       <p>
         <el-link href="/view/mainLayout" target="_blank" type="primary">layout</el-link>
       </p>
+      <p>
+        <span v-no-data-word="{message: '暂无数据', color: '#35fc96'}"></span>
+      </p>
     </div>
     <div class="flex-width flex-width-500">
       <el-carousel trigger="click">

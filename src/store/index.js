@@ -2,7 +2,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Cookies from 'js-cookie'
-import role from './module/role'
+import userInfo from './module/userInfo'
 import routerData from './module/routerData'
 Vue.use(Vuex)
 
@@ -26,12 +26,12 @@ const store = new Vuex.Store({
   },
   getters: {
     token: state => state.token,
-    info: state => state.role.info,
+    user: state => state.userInfo.user,
     routers: state => state.routerData.routers,
     addRouters: state => state.routerData.addRouters
   },
   modules: {
-    role,
+    userInfo,
     routerData
   }
 })
