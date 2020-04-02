@@ -9,6 +9,12 @@
       class="demo-ruleForm"
       action="/api/login"
     >
+      <el-form-item label="编号" prop="name" v-show=false>
+        <el-input v-model="ruleForm.id"></el-input>
+      </el-form-item>
+      <el-form-item label="角色" prop="name" v-show=false>
+        <el-input v-model="ruleForm.role"></el-input>
+      </el-form-item>
       <el-form-item label="用户名" prop="name">
         <el-input v-model="ruleForm.name"></el-input>
       </el-form-item>
@@ -30,6 +36,8 @@ export default {
   data () {
     return {
       ruleForm: {
+        id: '001',
+        role: 'leader',
         name: '',
         password: ''
       },
@@ -66,7 +74,9 @@ export default {
           })
           console.log('result:', result)
           document.cookie = 'loginUserName=' + result.name
-          this.$router.push('/')
+          document.cookie = 'loginUserId=' + result.id || ''
+          this.$store.dispatch('setUser', result)
+          this.$router.push('/view/home')
           // window.location.href = 'http://localhost:10020'
         })
         .catch(err => {
@@ -85,7 +95,7 @@ export default {
 <style scoped lang="scss">
   .content{
     width: 500px;
-    margin: 0 auto;
+    margin: 100px auto 20px;
   }
   h2 {
     text-align: center;

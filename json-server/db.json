@@ -16,40 +16,38 @@
   "profile": {
     "name": "typicode"
   },
-  "users": [
-    {
-      "name": "tt",
-      "phone": "123456789",
-      "email": "111@qq.com",
-      "age": "20",
-      "id": 1,
-      "companyId": 1
-    },
-    {
-      "name": "dede",
-      "phone": "123456789",
-      "email": "222@qq.com",
-      "age": "30",
-      "id": 2,
-      "companyId": 2
-    },
-    {
-      "name": "wf",
-      "phone": "123456789",
-      "email": "333@qq.com",
-      "age": "23",
-      "id": 3,
-      "companyId": 3
-    },
-    {
-      "name": "mj",
-      "phone": "123456789",
-      "email": "444@qq.com",
-      "age": "45",
-      "id": 4,
-      "companyId": 3
+  "login": {
+    "status": "OK",
+    "message": "",
+    "data": {
+      "id": "001",
+      "name": "admin",
+      "role": "leader",
+      "password": "123456"
     }
-  ],
+  },
+  "users": {
+    "status": "OK",
+    "message": "",
+    "data": [
+      {
+        "id": 1,
+        "companyId": 1,
+        "name": "admin",
+        "phone": "123456789",
+        "email": "111@qq.com",
+        "age": "20"
+      },
+      {
+        "id": 2,
+        "companyId": 2,
+        "name": "aaa",
+        "phone": "123456789",
+        "email": "222@qq.com",
+        "age": "30"
+      }
+    ]
+  },
   "companies": [
     {
       "id": 1,

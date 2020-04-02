@@ -11,7 +11,7 @@
               class="fa fa-arrows-alt fa-lg"></i>
           </el-tooltip>
         </li>
-        <li>{{ `role.${this.$store.getters.info.role}` }}</li>
+        <li>{{ user.role }}</li>
         <li>
           <el-dropdown @command="handleCommand">
             <span class="el-dropdown-link">
@@ -35,6 +35,7 @@
 
 <script>
 import Cookies from 'js-cookie'
+import {mapState} from 'vuex'
 
 export default {
   name: 'Header',
@@ -43,6 +44,12 @@ export default {
     return {
       isfullScreen: true
     }
+  },
+  created () {
+    this.$store.dispatch('getUserInfo')
+    setTimeout(() => {
+      console.log('user:', this.$store.state.user)
+    })
   },
   methods: {
     fullScreen () {
@@ -75,6 +82,12 @@ export default {
         location.reload()
       }
     }
+  },
+  computed: {
+    ...mapState([
+      'user',
+      'menuHide'
+    ])
   }
 }
 </script>
