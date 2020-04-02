@@ -19,6 +19,8 @@ const CommodityDetail = r => require.ensure([], () => r(require('@/components/co
 const ClientList = r => require.ensure([], () => r(require('@/components/client/ClientList.vue')))
 const ClientDetail = r => require.ensure([], () => r(require('@/components/client/ClientDetail.vue')))
 
+const GetInfoFromVuex = r => require.ensure([], () => r(require('@/components/GetInfoFromVuex.vue')))
+
 export const router = [
   {
     path: '/login',
@@ -146,6 +148,13 @@ export const router = [
         name: 'page404',
         meta: { title: '404' },
         component: Page404,
+        children: []
+      },
+      {
+        path: 'getInfoFromVuex',
+        name: 'GetInfoFromVuex',
+        meta: { title: 'GetInfoFromVuex' },
+        component: GetInfoFromVuex,
         children: []
       }
     ]

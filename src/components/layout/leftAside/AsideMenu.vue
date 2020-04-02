@@ -10,7 +10,7 @@
       @open="handleOpen"
       @close="handleClose"
       :collapse="isCollapse">
-      <template v-for="(item, index) in $store.getters.routers" v-if="!item.hidden">
+      <template v-for="(item, index) in $store.getters.routes" v-if="!item.hidden">
         <el-submenu v-if="item.children.length > 0" :index="index+''" :key="index+''">
           <template slot="title">
             <i :class="item.iconCls ? item.iconCls : 'el-icon-cherry'"></i>
@@ -47,8 +47,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('getRoutes')
-    console.log('this:', this.$store.getters)
+
   },
   methods: {
     handleOpen (key, keyPath) {

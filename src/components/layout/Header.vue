@@ -11,7 +11,7 @@
               class="fa fa-arrows-alt fa-lg"></i>
           </el-tooltip>
         </li>
-        <li>{{ `role` }}</li>
+        <li>{{ user.role }}</li>
         <li>
           <el-dropdown @command="handleCommand">
             <span class="el-dropdown-link">
@@ -46,7 +46,7 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('getInfo')
+    this.$store.dispatch('getUserInfo')
     setTimeout(() => {
       console.log('user:', this.$store.state.user)
     })
