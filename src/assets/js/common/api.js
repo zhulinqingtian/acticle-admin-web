@@ -98,5 +98,11 @@ export default {
    */
   getClientList (param) {
     return fetch('/api/getClientList', param, 'get')
+  },
+  /**
+   * 获取点赞用户列表
+   */
+  getAvatarList (param) {
+    return fetch('/api/getAvatarList', param, 'get')
   }
 }

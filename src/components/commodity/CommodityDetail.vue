@@ -56,7 +56,7 @@
         详情展示
       </el-tab-pane>
       <el-tab-pane label="宝贝评价" name="evaluates">
-        宝贝评价
+        <Reviews :id="item.id"/>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -64,6 +64,7 @@
 
 <script>
 import VDistpicker from 'v-distpicker'
+import Reviews from './Reviews'
 
 export default {
   name: 'CommodityList',
@@ -232,7 +233,7 @@ export default {
     }
   },
   components: {
-    VDistpicker
+    VDistpicker, Reviews
   }
 }
 </script>

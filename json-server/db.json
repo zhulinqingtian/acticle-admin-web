@@ -270,5 +270,31 @@
         "src": "/img/slider/06.png"
       }
     ]
+  },
+  "getAvatarList": {
+    "status": "OK",
+    "message": "",
+    "data": [
+      {
+        "id": "001",
+        "name": "张三",
+        "src": "/img/avatar/1.png"
+      },
+      {
+        "id": "002",
+        "name": "喵喵",
+        "src": "/img/avatar/2.png"
+      },
+      {
+        "id": "003",
+        "name": "试试",
+        "src": "/img/avatar/3.png"
+      },
+      {
+        "id": "004",
+        "name": "绿色鸟",
+        "src": "/img/avatar/4.jpg"
+      }
+    ]
   }
 }
