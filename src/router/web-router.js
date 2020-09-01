@@ -21,6 +21,8 @@ const ClientDetail = r => require.ensure([], () => r(require('@/components/clien
 
 const GetInfoFromVuex = r => require.ensure([], () => r(require('@/components/GetInfoFromVuex.vue')))
 
+const FilterCommodity = r => require.ensure([], () => r(require('@/components/filterGoods/FilterGoods.vue')))
+
 export const router = [
   {
     path: '/login',
@@ -89,6 +91,14 @@ export const router = [
         iconCls: 'el-icon-cold-drink', // 图标样式class
         meta: { title: '商品详情' },
         component: CommodityDetail,
+        children: []
+      },
+      {
+        path: 'filterCommodity',
+        name: 'FilterCommodity',
+        iconCls: 'el-icon-cold-drink',
+        meta: { title: '商品分类' },
+        component: FilterCommodity,
         children: []
       }
     ]

@@ -13,6 +13,7 @@ Vue.directive('roleBtn', {
   }
 })
 
+// 暂无数据
 Vue.directive('no-data-word', {
   // 只调用一次，指令第一次绑定到元素时调用
   bind: function (el, binding) {
@@ -20,6 +21,18 @@ Vue.directive('no-data-word', {
     el.style.color = binding.value.color
   }
 })
+
+// 文本超出显示省略号
+Vue.directive('multi-ellipsis', {
+  // 只调用一次，指令第一次绑定到元素时调用
+  bind: function (el, binding) {
+    el.style.overflow = 'hidden'
+    el.style.display = '-webkit-box'
+    el.style['-webkitBoxOrient'] = 'vertical'
+    el.style['-webkitLineClamp'] = binding.value
+  }
+})
+
 export default Vue
 
 /**

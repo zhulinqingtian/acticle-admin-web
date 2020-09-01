@@ -11,6 +11,9 @@
         <el-link href="/view/mainLayout" target="_blank" type="primary">layout</el-link>
       </p>
       <p>
+        <el-link href="/view/filterCommodity" target="_blank" type="primary">分类</el-link>
+      </p>
+      <p>
         <span v-no-data-word="{message: '暂无数据', color: '#35fc96'}"></span>
       </p>
     </div>
