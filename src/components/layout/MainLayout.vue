@@ -79,7 +79,7 @@ export default {
   %cursor {
     cursor: pointer;
   }
-  html, body, #layout, .el-container, #asideNav, ul.el-menu {
+  html, body, .el-container, #asideNav, ul.el-menu {
     @extend %h100;
   }
   @mixin set-value($side, $value) {

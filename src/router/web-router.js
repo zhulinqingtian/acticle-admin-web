@@ -23,6 +23,8 @@ const GetInfoFromVuex = r => require.ensure([], () => r(require('@/components/Ge
 
 const FilterCommodity = r => require.ensure([], () => r(require('@/components/filterGoods/FilterGoods.vue')))
 
+const Index = r => require.ensure([], () => r(require('@/components/index/Index.vue')))
+
 export const router = [
   {
     path: '/login',
@@ -30,6 +32,22 @@ export const router = [
     meta: { title: '登录' },
     component: Login,
     children: []
+  },
+  {
+    path: '/view',
+    name: '个人主页',
+    iconCls: 'el-icon-platform-eleme',
+    component: MainLayout,
+    children: [
+      {
+        path: 'index',
+        name: 'Index',
+        iconCls: 'el-icon-platform-eleme',
+        meta: { title: '主页' },
+        component: Index,
+        children: []
+      }
+    ]
   },
   {
     path: '/view',
